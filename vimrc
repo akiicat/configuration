@@ -62,14 +62,19 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 " map a specific key or shortcut to open NERDTree `≈` alt+x
-nmap ≈ :NERDTreeToggle<CR> 
+nmap ≈ :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " next tab
-nnoremap <C-l> gt
-nnoremap <C-h> gT
+nnoremap <C-L> gt
+nnoremap <C-H> gT
+
+" move current tab to next ¬ alt+l
+" move current tab to prev ˙ alt+h
+nnoremap ¬ :+tabmove<cr>
+nnoremap ˙ :-tabmove<cr>
 
 
 
