@@ -45,12 +45,6 @@ set expandtab
 
 set nowrap
 
-" tab indent
-nmap <tab> V>
-nmap <s-tab> V<
-vmap <tab> >gv
-vmap <s-tab> <gv
-
 " Display tabs and trailing spaces visually
 " set list listchars=tab:\ \ ,trail:Â
 
