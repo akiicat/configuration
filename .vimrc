@@ -70,6 +70,12 @@ nnoremap <C-H> gT
 nnoremap ¬ :+tabmove<cr>
 nnoremap ˙ :-tabmove<cr>
 
+" copy alt + c
+nmap <silent> gya :silent<Space>w<Space>!pbcopy<CR>
+nmap <silent> gyy Vgy
+vmap <silent> gy  :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 
+" paste alt + v
+nmap <silent> √ :r!<Space>pbpaste<CR>
 
 
