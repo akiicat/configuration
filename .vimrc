@@ -14,6 +14,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'posva/vim-vue'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'rhysd/vim-crystal'
 
 " theme
 " Plugin 'vim-airline/vim-airline'
@@ -61,6 +62,9 @@ nmap ≈ :NERDTreeToggle<CR>
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" show hidden files
+let NERDTreeShowHidden=1
+
 " next tab
 nnoremap <C-L> gt
 nnoremap <C-H> gT
@@ -77,5 +81,4 @@ vmap <silent> gy  :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 
 " paste alt + v
 nmap <silent> √ :r!<Space>pbpaste<CR>
-
 
