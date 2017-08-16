@@ -16,10 +16,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'rhysd/vim-crystal'
 
-" theme
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -48,6 +44,9 @@ set nowrap
 
 " Display tabs and trailing spaces visually
 " set list listchars=tab:\ \ ,trail:Â
+
+" sparkup expand html tag for all type file
+set ft=html
 
 " syntax highlighting
 syntax enable
