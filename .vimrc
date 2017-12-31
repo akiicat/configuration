@@ -81,3 +81,6 @@ vmap <silent> gy  :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 " paste alt + v
 nmap <silent> √ :r!<Space>pbpaste<CR>
 
+" multi cursor exit insert mode
+nnoremap <C-c> :call multiple_cursors#quit()<CR>
+
