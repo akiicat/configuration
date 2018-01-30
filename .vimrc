@@ -14,11 +14,8 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'posva/vim-vue'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'rhysd/vim-crystal'
 Plugin 'slim-template/vim-slim'
-
-" theme
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -49,6 +46,9 @@ set nowrap
 " Display tabs and trailing spaces visually
 " set list listchars=tab:\ \ ,trail:Â
 
+" sparkup expand html tag for all type file
+set ft=html
+
 " syntax highlighting
 syntax enable
 
@@ -61,6 +61,9 @@ nmap ≈ :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" show hidden files
+let NERDTreeShowHidden=1
 
 " next tab
 nnoremap <C-L> gt
