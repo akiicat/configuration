@@ -6,3 +6,6 @@ alias kj="kill -9 $(jobs -ps)"
 
 # 取代文字
 # grep -rlI matchstring somedir/ | xargs sed -i "" 's/string1/string2/g'
+
+# 不用互動式來新增使用者
+# adduser --disabled-password --gecos "" username
