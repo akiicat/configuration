@@ -14,11 +14,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
 
 " highlighting
-Plugin 'posva/vim-vue'
-Plugin 'rhysd/vim-crystal'
-Plugin 'slim-template/vim-slim'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'statianzo/vim-jade'
+" Plugin 'posva/vim-vue'
+" Plugin 'rhysd/vim-crystal'
+" Plugin 'slim-template/vim-slim'
+" Plugin 'digitaltoad/vim-pug'
+" Plugin 'statianzo/vim-jade'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
