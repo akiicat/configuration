@@ -1,15 +1,26 @@
+
+## clone
+
 ```shell
 git clone git@gist.github.com:2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
 ```
+
+## Install
+
+### vimrc
 
 ```shell
 cp ./profile/vimrc ~/.vimrc
 vim +PluginInstall +qall
 ```
 
+### bash_profile
+
 ```shell
 cp ./profile/bash_profile ~/.bash_profile
 ```
+
+### gitconfig
 
 ```shell
 cp ./profile/gitconfig ~/.gitconfig
