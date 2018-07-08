@@ -9,6 +9,12 @@ git clone git@gist.github.com:2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
 
 ### vimrc
 
+install vundle
+
+```shell
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
 ```shell
 cp ./profile/vimrc ~/.vimrc
 vim +PluginInstall +qall
