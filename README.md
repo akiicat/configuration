@@ -2,7 +2,7 @@
 ## clone
 
 ```shell
-git clone git@gist.github.com:2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
+git clone https://gist.github.com/2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
 ```
 
 ## Install
