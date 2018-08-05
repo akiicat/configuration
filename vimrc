@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" set swap file path
+set directory=/tmp
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -53,6 +56,7 @@ set ft=html
 syntax enable
 
 " different tabs for different languages
+" https://stackoverflow.com/questions/33291130/how-can-i-configure-vim-for-2-different-languages
 autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " open NERDTree automatically when vim starts up on opening a directory
