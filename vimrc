@@ -8,17 +8,14 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 Plugin 'VundleVim/Vundle.vim'
+
 Plugin 'tpope/vim-fugitive'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'posva/vim-vue'
 Plugin 'scrooloose/nerdtree'
 Plugin 'terryma/vim-multiple-cursors'
-
-" highlighting
-" Plugin 'posva/vim-vue'
-" Plugin 'rhysd/vim-crystal'
-" Plugin 'slim-template/vim-slim'
-" Plugin 'digitaltoad/vim-pug'
-" Plugin 'statianzo/vim-jade'
+Plugin 'rhysd/vim-crystal'
+Plugin 'slim-template/vim-slim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -39,9 +36,9 @@ set nu
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 
 set nowrap
@@ -54,6 +51,9 @@ set ft=html
 
 " syntax highlighting
 syntax enable
+
+" different tabs for different languages
+autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
 
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
