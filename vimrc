@@ -1,47 +1,33 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set swap file path
-set directory=/tmp
+set directory=/tmp             " set swap file path
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'rstacruz/sparkup', {'rtp': 'vim'}
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'terryma/vim-multiple-cursors'
 
-Plugin 'tpope/vim-fugitive'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'posva/vim-vue'
-Plugin 'scrooloose/nerdtree'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'rhysd/vim-crystal'
-Plugin 'slim-template/vim-slim'
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
+Plug 'slim-template/vim-slim', { 'for': ['slim'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
+
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
+
 " Put your non-Plugin stuff after this line
 set nu
 
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 set expandtab
 
 set nowrap
@@ -57,7 +43,14 @@ syntax enable
 
 " different tabs for different languages
 " https://stackoverflow.com/questions/33291130/how-can-i-configure-vim-for-2-different-languages
-autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+" autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+
+" backspace issue on vim 8
+set backspace=indent,eol,start
+
+" prettier auto format
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
 
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
@@ -94,3 +87,4 @@ nnoremap <C-c> :call multiple_cursors#quit()<CR>
 
 " slim patch issue
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+

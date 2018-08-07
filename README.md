@@ -4,20 +4,28 @@
 ```shell
 git clone https://gist.github.com/2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
 ```
+## update vim
+
+### mac
+
+```shell
+brew install vim --with-override-system-vi
+```
 
 ## Install
 
 ### vimrc
 
-install vundle
+install [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```shell
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 ```shell
 cp ./profile/vimrc ~/.vimrc
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 ```
 
 ### bash_profile
