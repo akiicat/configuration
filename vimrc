@@ -38,6 +38,10 @@ set nowrap
 " sparkup expand html tag for all type file
 set ft=html
 
+" vim-prettier
+" max line length that prettier will wrap on
+let g:prettier#config#print_width = 120
+
 " syntax highlighting
 syntax enable
 
