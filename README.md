@@ -4,12 +4,30 @@
 ```shell
 git clone https://gist.github.com/2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
 ```
-## update vim
+## update vim to 8
 
 ### mac
 
 ```shell
 brew install vim --with-override-system-vi
+```
+
+### ubuntu
+
+```shell
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
+sudo apt install vim
+```
+
+### Raspberry Pi 3 B+
+
+```shell
+git clone https://github.com/vim/vim.git vim-master
+cd vim-master/src
+./configure
+make -j 4
+sudo make install
 ```
 
 ## Install
