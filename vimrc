@@ -53,8 +53,11 @@ syntax enable
 set backspace=indent,eol,start
 
 " prettier auto format
+" vim 8
+" autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
+autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
+
 
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
