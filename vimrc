@@ -58,13 +58,9 @@ set backspace=indent,eol,start
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.css,*.scss,*.less Prettier
 
-
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-" map a specific key or shortcut to open NERDTree `≈` alt+x
-nmap ≈ :NERDTreeToggle<CR>
 
 " close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -72,18 +68,26 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " show hidden files
 let NERDTreeShowHidden=1
 
+" open NERDTree
+nmap <F1> :NERDTreeToggle<CR> 
+" open terminal
+nmap <F2> :terminal<CR>
+nmap <F3> :vertical :terminal<CR>
+nmap <F4> :split<CR>
+nmap <F5> :vsplit<CR>
+
 " next tab
-nnoremap <C-L> gt
-nnoremap <C-H> gT
+nnoremap <C-h> gT
+nnoremap <C-l> gt
 
 " move current tab to next ¬ alt+l
 " move current tab to prev ˙ alt+h
+nnoremap <A-L> :+tabmove<cr>
+nnoremap <A-H> :-tabmove<cr>
 nnoremap ¬ :+tabmove<cr>
 nnoremap ˙ :-tabmove<cr>
 
 " copy gy
-nmap <silent> gya :silent<Space>w<Space>!pbcopy<CR>
-nmap <silent> gyy Vgy
 vmap <silent> gy  :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 
 " paste alt + v
@@ -94,4 +98,3 @@ nnoremap <C-c> :call multiple_cursors#quit()<CR>
 
 " slim patch issue
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-
