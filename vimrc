@@ -10,12 +10,16 @@ Plug 'rstacruz/sparkup', {'rtp': 'vim'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
 
+Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 Plug 'slim-template/vim-slim', { 'for': ['slim'] }
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 
 call plug#end()
+
+" Install
+" vim +PlugInstall +qall
 
 filetype plugin indent on    " required
 
