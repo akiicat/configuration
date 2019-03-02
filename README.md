@@ -2,7 +2,7 @@
 ## clone
 
 ```shell
-git clone https://gist.github.com/2e63be1ffe7b7f7cb758e6022cd32f3a.git ./profile
+git clone https://gist.github.com/2e63be1ffe7b7f7cb758e6022cd32f3a.git /tmp/profile
 ```
 ## update vim to 8
 
@@ -15,9 +15,9 @@ brew install vim --with-override-system-vi
 ### ubuntu
 
 ```shell
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository -y ppa:jonathonf/vim
 sudo apt update
-sudo apt install vim
+sudo apt install -y vim
 ```
 
 ### Raspberry Pi 3 B+
@@ -37,25 +37,26 @@ sudo make install
 install [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```shell
+sudo apt install -y curl
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 ```shell
-cp ./profile/vimrc ~/.vimrc
+cp /tmp/profile/vimrc ~/.vimrc
 vim +PlugInstall +qall
 ```
 
 ### bash_profile
 
 ```shell
-cp ./profile/bash_profile ~/.bash_profile
+cp /tmp/profile/bash_profile ~/.bash_profile
 ```
 
 ### gitconfig
 
 ```shell
-cp ./profile/gitconfig ~/.gitconfig
+cp /tmp/profile/gitconfig ~/.gitconfig
 ```
 
 ## 取代文字
