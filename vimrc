@@ -17,7 +17,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 Plug 'slim-template/vim-slim', { 'for': ['slim'] }
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn', 'dzn'] }
+Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn'] }
 
 call plug#end()
 
