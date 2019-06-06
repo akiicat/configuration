@@ -10,11 +10,14 @@ Plug 'rstacruz/sparkup', {'rtp': 'vim'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'terryma/vim-multiple-cursors'
 
+
+" Syntax highlighting
 Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 Plug 'slim-template/vim-slim', { 'for': ['slim'] }
 Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
+Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn', 'dzn'] }
 
 call plug#end()
 
