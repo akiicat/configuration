@@ -52,6 +52,8 @@ let g:prettier#config#print_width = 120
 " syntax highlighting
 syntax enable
 
+hi Comment ctermfg=DarkGrey
+
 " different tabs for different languages
 " https://stackoverflow.com/questions/33291130/how-can-i-configure-vim-for-2-different-languages
 " autocmd FileType ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
