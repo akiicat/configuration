@@ -37,7 +37,7 @@ sudo make install
 install [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```shell
-sudo apt install -y curl
+sudo apt install -y curl npm
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
