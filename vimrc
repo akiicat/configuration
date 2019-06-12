@@ -52,6 +52,7 @@ let g:prettier#config#print_width = 120
 " syntax highlighting
 syntax enable
 
+" Comment highlight
 hi Comment ctermfg=DarkGrey
 
 " different tabs for different languages
