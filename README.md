@@ -1,23 +1,23 @@
 
-## clone
+## Clone
 
 ```shell
-git clone https://github.com/akiicat/configuration.git /tmp/profile
-```
-## update vim to 8
-
-### mac
-
-```shell
-brew install vim --with-override-system-vi
+git clone https://github.com/akiicat/configuration.git
+cd configuration
 ```
 
-### ubuntu
+## Install vim
+
+- install [vim](https://github.com/vim/vim)
+- install [vim-plug](https://github.com/junegunn/vim-plug)
+
+### Mac
 
 ```shell
-sudo add-apt-repository -y ppa:jonathonf/vim
-sudo apt update
-sudo apt install -y vim
+brew install vim
+
+# Install Vim Plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
 ### Raspberry Pi 3 B+
@@ -28,34 +28,18 @@ cd vim-master/src
 ./configure
 make -j 4
 sudo make install
-```
 
-## Install
-
-### vimrc
-
-install [vim-plug](https://github.com/junegunn/vim-plug)
-
-```shell
+# Install Vim Plug
 sudo apt install -y curl npm
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
+## Install Vim Plug
+
 ```shell
-cp /tmp/profile/vimrc ~/.vimrc
+cp ./bash_profile ~/.bash_profile
+cp ./gitconfig ~/.gitconfig
+cp ./vimrc ~/.vimrc
 vim +PlugInstall +qall
-```
-
-### bash_profile
-
-```shell
-cp /tmp/profile/bash_profile ~/.bash_profile
-```
-
-### gitconfig
-
-```shell
-cp /tmp/profile/gitconfig ~/.gitconfig
 ```
 
