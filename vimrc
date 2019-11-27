@@ -45,6 +45,7 @@ set expandtab
 set nowrap
 set updatetime=100             " Git Gutter, vim window update time default 4000
 set backspace=indent,eol,start " backspace issue on vim 8
+set wildmode=longest,list      " Command complete. reference to: `:h :wildmode`
 " ---- End Settings ----
  
 " ---- Highlight ----
