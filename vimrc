@@ -65,7 +65,7 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let NERDTreeShowHidden=1
 
 " toggle NERDTree
-nmap <C-o> :NERDTreeToggle<CR> 
+nmap <C-q> :NERDTreeToggle<CR> 
 " ---- End NERDTree ----
 
 " ---- Git Gutter ----
