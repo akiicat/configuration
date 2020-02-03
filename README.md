@@ -8,6 +8,14 @@ cd vim
 
 ## Install Vim
 
+### Ubuntu
+
+```shell
+sudo add-apt-repository ppa:jonathonf/vim
+sudo apt update
+sudo apt install -y vim
+```
+
 ### Mac
 
 ```shell
