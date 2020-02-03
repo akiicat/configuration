@@ -2,8 +2,8 @@
 ## Clone
 
 ```shell
-git clone https://github.com/akiicat/configuration.git
-cd configuration
+git clone https://github.com/akiicat/vim.git
+cd vim
 ```
 
 ## Install Vim
