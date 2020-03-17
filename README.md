@@ -2,13 +2,19 @@
 ## Install
 
 ```shell
-curl https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s all
+curl -L https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s all
 ```
 
 or
 
 ```shell
-curl https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s vim git tmux bash
+curl -L https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s vim git tmux bash
+```
+
+or
+
+```shell
+curl -L https://link.akiicat.com/conf | bash -s vim git tmux bash
 ```
 
 ## Reference
