@@ -1,31 +1,14 @@
 
-## Clone
+## Install
 
 ```shell
-git clone https://github.com/akiicat/vim.git
-cd vim
+curl https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s all
 ```
 
-## Install Vim
-
-### Ubuntu
+or
 
 ```shell
-sudo add-apt-repository ppa:jonathonf/vim
-sudo apt update
-sudo apt install -y vim
-```
-
-### Mac
-
-```shell
-brew install vim
-./install
-```
-
-```shell
-cp ./bash_profile ~/.bash_profile
-cp ./gitconfig ~/.gitconfig
+curl https://raw.githubusercontent.com/akiicat/vim/master/script.sh | bash -s vim git tmux bash
 ```
 
 ## Reference
