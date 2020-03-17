@@ -1,0 +1,39 @@
+#!/bin/bash
+
+echo "[VIM]: Install vim at $OSTYPE"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  sudo add-apt-repository ppa:jonathonf/vim
+  sudo apt update
+  sudo apt install -y vim
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mac OSX
+  brew install vim
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+  # POSIX compatibility layer and Linux environment emulation for Windows
+elif [[ "$OSTYPE" == "msys" ]]; then
+  # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+elif [[ "$OSTYPE" == "win32" ]]; then
+  # I'm not sure this can happen.
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+  # ...
+else
+  # Unknown.
+fi
+
+echo "[VIM]: Backup $HOME/.vimrc to $HOME/.vimrc.bak"
+if [[ -f "~/.vimrc" ]];
+then
+  mv ~/.vimrc ~/.vimrc.bak
+fi
+
+echo "[VIM]: Install at $HOME/.vimrc"
+cp ./vimrc ~/.vimrc
+
+echo "[VIM]: Install Vim Plug"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+echo "[VIM]: Install Vim packages"
+vim +PlugInstall +qall
+
+echo "[VIM]: Install Complete"
+

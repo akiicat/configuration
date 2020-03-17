@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "[GIT]: Backup $HOME/.gitconfig to $HOME/.gitconfig.bak"
+if [[ -f "~/.gitconfig" ]];
+then
+  mv ~/.gitconfig ~/.gitconfig.bak
+fi
+
+echo "[GIT]: Install at $HOME/.gitconfig"
+cp ./gitconfig ~/.gitconfig
+
+echo "[GIT]: Install Complete"
+

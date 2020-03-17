@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "[TMUX]: Backup $HOME/.tmux.conf to $HOME/.tmux.conf.bak"
+if [[ -f "~/.tmux.conf" ]];
+then
+  mv ~/.tmux.conf ~/.tmux.conf.bak
+fi
+
+echo "[TMUX]: Install at $HOME/.tmux.conf"
+cp ./tmux.conf ~/.tmux.conf
+
+echo "[TMUX]: Install Complete"
+

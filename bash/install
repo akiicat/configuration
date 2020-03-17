@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "[BASH]: Backup $HOME/.bash_profile to $HOME/.bash_profile.bak"
+if [[ -f "~/.bash_profile" ]];
+then
+  mv ~/.bash_profile ~/.bash_profile.bak
+fi
+
+echo "[BASH]: Install at $HOME/.bash_profile"
+cp ./bash_profile ~/.bash_profile
+
+echo "[BASH]: Install Complete"
+

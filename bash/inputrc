@@ -1,0 +1,14 @@
+# set editing-mode vi
+
+# Key Sequence
+#   list:   bind -p > .inputrc
+#   bind:   bind -x '"\C-l":ls'
+#   unbind: bind -r '"\C-l"'
+#
+# Function
+#   list:   bind -P
+#   bind:   bind '"\C-t": end-of-line'
+#   unbind: bind -u 'end-of-line'
+#
+# File
+#   bind:   bind -f <filename>
