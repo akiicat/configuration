@@ -2,22 +2,27 @@
 
 echo "[VIM]: Install vim at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  sudo add-apt-repository ppa:jonathonf/vim
-  sudo apt update
+  sudo add-apt-repository -y ppa:jonathonf/vim
+  sudo apt update -y
   sudo apt install -y vim
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
   brew install vim
 elif [[ "$OSTYPE" == "cygwin" ]]; then
   # POSIX compatibility layer and Linux environment emulation for Windows
+  echo "[VIM]: TODO install vim on $OSTYPE"
 elif [[ "$OSTYPE" == "msys" ]]; then
   # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+  echo "[VIM]: TODO install vim on $OSTYPE"
 elif [[ "$OSTYPE" == "win32" ]]; then
   # I'm not sure this can happen.
+  echo "[VIM]: TODO install vim on $OSTYPE"
 elif [[ "$OSTYPE" == "freebsd"* ]]; then
   # ...
+  echo "[VIM]: TODO install vim on $OSTYPE"
 else
   # Unknown.
+  echo "[VIM]: TODO install vim on $OSTYPE"
 fi
 
 echo "[VIM]: Backup $HOME/.vimrc to $HOME/.vimrc.bak"
