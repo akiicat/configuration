@@ -2,9 +2,15 @@
 
 echo "[VIM]: Install vim at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  sudo add-apt-repository -y ppa:jonathonf/vim
-  sudo apt update -y
-  sudo apt install -y vim
+  if [ -f /etc/redhat-release ]; then
+    echo "[VIM]: TODO install vim 8.0 on Centos"
+  fi
+
+  if [ -f /etc/lsb-release ]; then
+    sudo add-apt-repository -y ppa:jonathonf/vim
+    sudo apt update -y
+    sudo apt install -y vim
+  fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
   brew install vim
