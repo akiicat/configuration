@@ -1,4 +1,7 @@
-# mac default setting "\h:\W \u\$ "
+# mac default setting
+# PS1="\h:\W \u\$ "
+# ubuntu default setting:
+# PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 export PS1="\n$ "
 
 # history list with iso 8601 time format
