@@ -1,4 +1,9 @@
 
+## Require
+
+- git
+- curl
+
 ## Install
 
 ```shell
