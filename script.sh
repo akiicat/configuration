@@ -29,24 +29,24 @@ else
 fi
 cd $path
 
-if [[ $all == "1" ]] || [[ $tmux == "1" ]];
-then
-        echo "Install tmux"
-        cd "$path/tmux" && ./install
-fi
 if [[ $all == "1" ]] || [[ $bash == "1" ]];
 then
         echo "Install bash"
         cd "$path/bash" && ./install
 fi
-if [[ $all == "1" ]] || [[ $vim == "1" ]];
+if [[ $all == "1" ]] || [[ $tmux == "1" ]];
 then
-        echo "Install vim"
-        cd "$path/vim" && ./install
+        echo "Install tmux"
+        cd "$path/tmux" && ./install
 fi
 if [[ $all == "1" ]] || [[ $git == "1" ]];
 then
         echo "Install git"
         cd "$path/git" && ./install
+fi
+if [[ $all == "1" ]] || [[ $vim == "1" ]];
+then
+        echo "Install vim"
+        cd "$path/vim" && ./install
 fi
 
