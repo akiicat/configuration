@@ -22,12 +22,13 @@ done
 
 url=https://github.com/akiicat/vim.git
 path=/tmp/akiicat/vim
-if cd $path; then
+if [ -d "$path" ]; then
+  cd $path
   git pull;
 else
   git clone --depth=1 $url $path;
+  cd $path
 fi
-cd $path
 
 if [[ $all == "1" ]] || [[ $bash == "1" ]];
 then
