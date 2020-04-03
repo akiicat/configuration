@@ -8,6 +8,7 @@ call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/lightline.vim' " Light line status bar
 
 " Optional
 Plug 'junegunn/vim-easy-align'
@@ -46,6 +47,7 @@ set nowrap
 set updatetime=100             " Git Gutter, vim window update time default 4000
 set backspace=indent,eol,start " backspace issue on vim 8
 set wildmode=longest,list      " Command complete. reference to: `:h :wildmode`
+set laststatus=2               " Light Line Status Bar
 " ---- End Settings ----
  
 " ---- Highlight ----
