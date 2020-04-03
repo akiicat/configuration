@@ -2,18 +2,25 @@
 
 echo "[VIM]: Install vim at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # Centos
   if [ -f /etc/redhat-release ]; then
     echo "[VIM]: TODO install vim 8.0 on Centos"
   fi
 
+  # Ubuntu
   if [ -f /etc/lsb-release ]; then
     sudo add-apt-repository -y ppa:jonathonf/vim
     sudo apt update -y
     sudo apt install -y vim
+
+    # vim-css-color need to install gvim
+    sudo apt install -y gvim
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
   brew install vim
+  # vim-css-color need to install macvim
+  # brew install macvim
 elif [[ "$OSTYPE" == "cygwin" ]]; then
   # POSIX compatibility layer and Linux environment emulation for Windows
   echo "[VIM]: TODO install vim on $OSTYPE"

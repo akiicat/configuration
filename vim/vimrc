@@ -8,7 +8,6 @@ call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
-Plug 'itchyny/lightline.vim' " Light line status bar
 
 " Optional
 Plug 'junegunn/vim-easy-align'
@@ -16,6 +15,8 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'rstacruz/sparkup', {'rtp': 'vim'}
 
 " Syntax highlighting
+Plug 'itchyny/lightline.vim' " Light line status bar
+Plug 'ap/vim-css-color'
 " Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
@@ -80,6 +81,14 @@ hi GitGutterDelete ctermfg=Red
 nnoremap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
 nnoremap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
 " ---- End Git Gutter ----
+
+" ---- Easy Align ----
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" ---- End Easy Align ----
 
 " ---- Tab ----
 " jump to the between tabs
