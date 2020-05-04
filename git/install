@@ -1,5 +1,27 @@
 #!/bin/bash
 
+echo "[GIT]: Install git at $OSTYPE"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  if [ -f /etc/lsb-release ]; then
+    # Ubuntu
+    echo "[GIT]: Istall git on ubuntu"
+    sudo apt update -y
+    sudo apt install -y git
+  elif [ -f /etc/redhat-release ]; then
+    # Centos
+    echo "[GIT]: TODO install git on Centos"
+  else
+    # Unknown.
+    echo "[GIT]: TODO install git on $OSTYPE"
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mac OSX
+  brew install tmux
+else
+  # Unknown.
+  echo "[GIT]: TODO install git on $OSTYPE"
+fi
+
 echo "[GIT]: Backup $HOME/.gitconfig to $HOME/.gitconfig.bak"
 if [[ -f "~/.gitconfig" ]];
 then
