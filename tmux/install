@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "[VIM]: Install vim at $OSTYPE"
+echo "[TMUX]: Install tmux at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     # Ubuntu
@@ -9,17 +9,17 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt install -y tmux
   elif [ -f /etc/redhat-release ]; then
     # Centos
-    echo "[VIM]: TODO install tmux on Centos"
+    echo "[TMUX]: TODO install tmux on Centos"
   else
     # Unknown.
-    echo "[VIM]: TODO install vim on $OSTYPE"
+    echo "[TMUX]: TODO install tmux on $OSTYPE"
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
   brew install tmux
 else
   # Unknown.
-  echo "[VIM]: TODO install vim on $OSTYPE"
+  echo "[TMUX]: TODO install tmux on $OSTYPE"
 fi
 
 echo "[TMUX]: Backup $HOME/.tmux.conf to $HOME/.tmux.conf.bak"
