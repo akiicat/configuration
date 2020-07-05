@@ -14,7 +14,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt install -y vim
 
     # vim-css-color need to install gvim
-    sudo apt install -y gvim
+    sudo apt install -y vim-common
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
