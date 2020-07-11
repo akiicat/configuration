@@ -8,7 +8,7 @@ call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Optional
 Plug 'junegunn/vim-easy-align'
@@ -48,3 +48,74 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 set nowrap
+set updatetime=100             " Git Gutter, vim window update time default 4000
+set backspace=indent,eol,start " backspace issue on vim 8
+set wildmode=longest,list      " Command complete. reference to: `:h :wildmode`
+set laststatus=2               " Light Line Status Bar
+" ---- End Settings ----
+ 
+" ---- Highlight ----
+" syntax highlighting
+syntax enable
+
+" Comment highlight
+hi Comment ctermfg=DarkGrey
+" ---- End Highlight ----
+
+" ---- NERDTree ----
+" open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | :q | endif
+
+" show hidden files
+let NERDTreeShowHidden=1
+
+" toggle NERDTree
+nnoremap <C-q> :NERDTreeToggle<CR> 
+" ---- End NERDTree ----
+
+" ---- Git Gutter ----
+" get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
+hi GitGutterAdd    ctermfg=Green 
+hi GitGutterChange ctermfg=Yellow
+hi GitGutterDelete ctermfg=Red 
+
+" jump between hunks
+nnoremap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
+nnoremap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
+" ---- End Git Gutter ----
+
+" ---- Easy Align ----
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" ---- End Easy Align ----
+
+" ---- Tab ----
+" jump to the between tabs
+nnoremap <C-l> gt
+nnoremap <C-h> gT
+
+" move current tab to next ¬ alt+l
+" move current tab to prev ˙ alt+h
+nnoremap <A-L> :+tabmove<cr>
+nnoremap <A-H> :-tabmove<cr>
+nnoremap ¬ :+tabmove<cr>
+nnoremap ˙ :-tabmove<cr>
+" ---- End Tab ----
+
+" ---- Copy and Paste ----
+" copy gy
+vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
+
+" paste alt + v
+" nmap <silent> √ :r!<Space>pbpaste<CR>
+" ---- End Copy and Paste ----
+
+" ---- Vim Go ----
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+" ---- End Vim Go ----
+
