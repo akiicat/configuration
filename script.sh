@@ -22,21 +22,10 @@ done
 
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  # Centos
-  if [ -f /etc/redhat-release ]; then
-  fi
-
-  # Ubuntu
   if [ -f /etc/lsb-release ]; then
     sudo apt update -y
     sudo apt install -y git
   fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-elif [[ "$OSTYPE" == "msys" ]]; then
-elif [[ "$OSTYPE" == "win32" ]]; then
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
-else
 fi
 
 
