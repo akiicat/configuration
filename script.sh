@@ -24,7 +24,7 @@ done
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     sudo apt update -y
-    sudo apt install -y git
+    sudo apt install -y git curl
   fi
 fi
 
