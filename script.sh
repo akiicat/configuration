@@ -5,6 +5,7 @@ tmux=0
 bash=0
 vim=0
 git=0
+docker=0
 
 while [[ $# -gt 0 ]];
 do
@@ -16,6 +17,7 @@ do
         "bash" ) bash=1 ;;
         "vim" ) vim=1 ;;
         "git" ) git=1 ;;
+        "docker" ) docker=1 ;;
         *) echo >&2 "Invalid option: $opt"; exit 1;;
     esac
 done
@@ -58,5 +60,10 @@ if [[ $all == "1" ]] || [[ $vim == "1" ]];
 then
         echo "Install vim"
         cd "$path/vim" && ./install
+fi
+if [[ $all == "1" ]] || [[ $docker == "1" ]];
+then
+        echo "Install docker"
+        cd "$path/docker" && ./install
 fi
 

@@ -1,0 +1,59 @@
+#!/bin/bash
+
+echo "[DOCKER]: Install docker at $OSTYPE"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+  # Centos
+  if [ -f /etc/redhat-release ]; then
+    echo "[DOCKER]: TODO install docker 8.0 on Centos"
+  fi
+
+  # Ubuntu
+  if [ -f /etc/lsb-release ]; then
+    sudo apt-get remove -y docker docker-engine docker.io containerd runc
+    sudo apt-get update -y
+    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    sudo add-apt-repository -y \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+
+    sudo apt-get update -y
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
+
+    # Manage Docker as a non-root user
+    if [[ "$USER" != "root" ]]; then
+      sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+      sudo chmod g+rwx "$HOME/.docker" -R
+    fi
+
+    # Configure Docker to start on boot
+    sudo systemctl enable docker
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  # Mac OSX
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+  # POSIX compatibility layer and Linux environment emulation for Windows
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+elif [[ "$OSTYPE" == "msys" ]]; then
+  # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+elif [[ "$OSTYPE" == "win32" ]]; then
+  # I'm not sure this can happen.
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+elif [[ "$OSTYPE" == "freebsd"* ]]; then
+  # ...
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+else
+  # Unknown.
+  echo "[DOCKER]: TODO install docker on $OSTYPE"
+fi
+
+echo "[DOCKER]: Install Complete"
+
