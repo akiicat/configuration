@@ -1,12 +1,14 @@
 #!/bin/bash
 
+source ../utils
+
 echo "[TMUX]: Install tmux at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     # Ubuntu
     echo "[TMUX]: Istall tmux on ubuntu"
-    sudo apt update -y
-    sudo apt install -y tmux
+    $sh_c "apt update -yqq"
+    $sh_c "apt install -yqq tmux"
   elif [ -f /etc/redhat-release ]; then
     # Centos
     echo "[TMUX]: TODO install tmux on Centos"

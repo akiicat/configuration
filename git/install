@@ -1,18 +1,14 @@
 #!/bin/bash
 
+source ../utils
+
 echo "[GIT]: Install git at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     # Ubuntu
     echo "[GIT]: Istall git on ubuntu"
-    # docker: check sudo command exists
-    if ! command -v sudo &> /dev/null; then
-      apt update -y
-      apt install -y git
-    else
-      sudo apt update -y
-      sudo apt install -y git
-    fi
+    $sh_c "apt update -yqq"
+    $sh_c "apt install -yqq git"
   elif [ -f /etc/redhat-release ]; then
     # Centos
     echo "[GIT]: TODO install git on Centos"
