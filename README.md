@@ -9,13 +9,13 @@
 ### crul
 
 ```shell
-curl -L http://install.akiicat.com | bash -s -- vim git tmux bash
+curl -L http://get.akiicat.com | bash -s -- vim git tmux bash
 ```
 
 ### wget
 
 ```shell
-wget -O - http://install.akiicat.com | bash -s -- vim git tmux bash
+wget -O - http://get.akiicat.com | bash -s -- vim git tmux bash
 ```
 
 ## Reference
