@@ -1,11 +1,24 @@
 #!/bin/bash
 
-all=0
-tmux=0
-bash=0
-vim=0
-git=0
-docker=0
+set -x
+
+WORKSPACE_PATH=${WORKSPACE_PATH:-/tmp}
+WORKSPACE=${WORKSPACE:-vim}
+
+cd $WORKSPACE_PATH || { echo "$WORKSPACE_PATH No such file or directory" 1>&2; exit 1; }
+mkdir -p $WORKSPACE || { echo "$PWD/$WORKSPACE already exists but is not a directory" 1>&2; exit 1; }
+
+cd $WORKSPACE
+
+# wget will overwrite the exist file
+wget https://www.busybox.net/downloads/binaries/1.21.1/busybox-x86_64 -o ./busybox || { echo "download failed" 1>&2; exit 1; }
+chmod u+x ./busybox
+
+[[ -f "busybox" ]] || { echo "busybox not exist"; exit 1; }
+
+wget https://github.com/akiicat/vim/archive/master.zip -o ./vim.zip || { echo "download failed" 1>&2; exit 1; }
+./busybox unzip vim.zip -d .
+
 
 while [[ $# -gt 0 ]];
 do
@@ -13,22 +26,14 @@ do
     shift;
     case "$opt" in
         "all" ) all=1 ;;
-        "tmux" ) tmux=1 ;;
-        "bash" ) bash=1 ;;
-        "vim" ) vim=1 ;;
-        "git" ) git=1 ;;
+        "tmux" ) cd $WORKSPACE_PATH/$WORKSPACE/tmux && ./install ;;
+        "bash" ) cd $WORKSPACE_PATH/$WORKSPACE/bash && ./install ;;
+        "vim" )  cd $WORKSPACE_PATH/$WORKSPACE/vim  && ./install ;;
+        "git" )  cd $WORKSPACE_PATH/$WORKSPACE/git  && ./install ;;
         "docker" ) docker=1 ;;
         *) echo >&2 "Invalid option: $opt"; exit 1;;
     esac
 done
-
-
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-  if [ -f /etc/lsb-release ]; then
-    sudo apt update -y
-    sudo apt install -y git
-  fi
-fi
 
 
 url=https://github.com/akiicat/vim.git
@@ -67,3 +72,4 @@ then
         cd "$path/docker" && ./install
 fi
 
+set +x
