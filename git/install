@@ -6,7 +6,7 @@ echo "[GIT]: Install git at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     # Ubuntu
-    echo "[GIT]: Istall git on ubuntu"
+    echo "[GIT]: Install git on ubuntu"
     $sh_c "apt update -yqq"
     $sh_c "apt install -yqq git"
   elif [ -f /etc/redhat-release ]; then
