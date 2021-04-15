@@ -78,9 +78,7 @@ nnoremap <C-q> :NERDTreeToggle<CR>
 " get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
 hi GitGutterAdd    ctermfg=Green 
 hi GitGutterChange ctermfg=Yellow
-hi GitGutterDelete ctermfg=Red 
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
+hi GitGutterDelete ctermfg=Red
 
 " jump between hunks
 nnoremap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
