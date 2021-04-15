@@ -79,6 +79,8 @@ nnoremap <C-q> :NERDTreeToggle<CR>
 hi GitGutterAdd    ctermfg=Green 
 hi GitGutterChange ctermfg=Yellow
 hi GitGutterDelete ctermfg=Red 
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 
 " jump between hunks
 nnoremap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
