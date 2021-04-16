@@ -9,6 +9,7 @@
 	name = Akiicat
 	email = aaaa1379@gmail.com
 [alias]
+	lt = log --date-order --graph --tags --simplify-by-decoration --pretty=format:'%ai %h %d'
 	ll = log --graph --oneline
 	st = status
 	co = checkout
