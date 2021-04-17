@@ -9,6 +9,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'joe-skb7/cscope-maps'
 
 " Optional
 Plug 'junegunn/vim-easy-align'
