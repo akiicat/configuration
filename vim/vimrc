@@ -54,7 +54,12 @@ set backspace=indent,eol,start " backspace issue on vim 8
 set wildmode=longest,list      " Command complete. reference to: `:h :wildmode`
 set laststatus=2               " Light Line Status Bar
 " ---- End Settings ----
- 
+
+" Remove Trailing Whitespaces
+" https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
+autocmd BufWritePre * %s/\s\+$//e
+"
+
 " ---- Highlight ----
 " syntax highlighting
 syntax enable
