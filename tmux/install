@@ -6,7 +6,7 @@ echo "[TMUX]: Install tmux at $OSTYPE"
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if [ -f /etc/lsb-release ]; then
     # Ubuntu
-    echo "[TMUX]: Istall tmux on ubuntu"
+    echo "[TMUX]: Install tmux on ubuntu"
     $sh_c "apt update -yqq"
     $sh_c "apt install -yqq tmux"
   elif [ -f /etc/redhat-release ]; then
