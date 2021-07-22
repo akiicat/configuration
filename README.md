@@ -4,6 +4,10 @@
 - git
 - curl
 
+```shell
+sudo apt install -y git curl
+```
+
 ## Install
 
 ### crul
