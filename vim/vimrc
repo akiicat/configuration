@@ -10,6 +10,9 @@ Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'joe-skb7/cscope-maps'
+Plug 'wenlongche/SrcExpl'
+Plug 'yegappan/taglist'
+
 
 " Optional
 Plug 'junegunn/vim-easy-align'
