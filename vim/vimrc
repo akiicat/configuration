@@ -17,9 +17,6 @@ Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
 Plug 'wenlongche/Trinity'
 
-
-
-
 " Optional
 Plug 'junegunn/vim-easy-align'
 " Plug 'mbbill/undotree'
