@@ -20,6 +20,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 
     # vim-css-color need to install gvim
     $sh_c "apt install -yqq vim-common"
+    
+    # ctags
+    $sh_c "apt install -yqq exuberant-ctags"
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   # Mac OSX
