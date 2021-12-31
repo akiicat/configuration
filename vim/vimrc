@@ -1,17 +1,23 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set directory=/tmp             " set swap file path
+set directory=/tmp            " set swap file path
 
 call plug#begin()
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'joe-skb7/cscope-maps'
+Plug 'ctrlpvim/ctrlp.vim'       " find files
+
+" trace code
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
+Plug 'wenlongche/Trinity'
+
+
 
 
 " Optional
@@ -63,13 +69,27 @@ set laststatus=2               " Light Line Status Bar
 autocmd BufWritePre * %s/\s\+$//e
 "
 
-" ---- Highlight ----
-" syntax highlighting
-syntax enable
 
-" Comment highlight
-hi Comment ctermfg=DarkGrey
-" ---- End Highlight ----
+" ---- Syntax Highlight ----
+set background=dark              " required
+syntax on
+
+colors ron
+hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
+
+function! ToggleColors()
+        if (get(g:, 'colors_name', '') == "morning")
+                colors ron
+                hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
+        elseif (get(g:, 'colors_name', '') == "ron")
+                colors default
+                hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
+        else
+                colors morning
+        endif
+endfunction
+nmap <F7> :call ToggleColors()<CR>
+" ---- End Syntax Highlight ----
 
 " ---- NERDTree ----
 " open NERDTree automatically when vim starts up on opening a directory
@@ -80,12 +100,12 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let NERDTreeShowHidden=1
 
 " toggle NERDTree
-nnoremap <C-q> :NERDTreeToggle<CR> 
+nnoremap <C-q> :NERDTreeToggle<CR>
 " ---- End NERDTree ----
 
 " ---- Git Gutter ----
 " get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
-hi GitGutterAdd    ctermfg=Green 
+hi GitGutterAdd    ctermfg=Green
 hi GitGutterChange ctermfg=Yellow
 hi GitGutterDelete ctermfg=Red
 nmap ghs <Plug>(GitGutterStageHunk)
@@ -107,15 +127,10 @@ nmap ga <Plug>(EasyAlign)
 
 " ---- Tab ----
 " jump to the between tabs
-nnoremap <C-l> gt
-nnoremap <C-h> gT
-
-" move current tab to next ¬ alt+l
-" move current tab to prev ˙ alt+h
-nnoremap <A-L> :+tabmove<cr>
-nnoremap <A-H> :-tabmove<cr>
-nnoremap ¬ :+tabmove<cr>
-nnoremap ˙ :-tabmove<cr>
+nnoremap <Tab>   gt
+nnoremap <S-Tab> gT
+" nnoremap <C-j> :+tabmove<cr>
+" nnoremap <C-k> :-tabmove<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
@@ -130,4 +145,25 @@ vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 " ---- End Vim Go ----
+
+" ---- Trinity ----
+" ctags source code browser
+nmap <F8>  :TrinityToggleAll<CR>
+
+" Open and close the Source Explorer separately
+nmap <F9>  :TrinityToggleSourceExplorer<CR>
+
+" Open and close the Taglist separately
+nmap <F10> :TrinityToggleTagList<CR>
+
+" Open and close the NERD Tree separately
+nmap <F11> :TrinityToggleNERDTree<CR>
+" ---- End Trinity ----
+
+" ---- Window ----
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+" ---- End Window ----
 
