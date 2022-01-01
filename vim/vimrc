@@ -15,7 +15,7 @@ Plug 'ctrlpvim/ctrlp.vim'       " find files
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
-Plug 'wenlongche/Trinity'
+" Plug 'wenlongche/Trinity'
 
 " Optional
 Plug 'junegunn/vim-easy-align'
