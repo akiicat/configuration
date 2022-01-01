@@ -66,7 +66,6 @@ set laststatus=2               " Light Line Status Bar
 autocmd BufWritePre * %s/\s\+$//e
 "
 
-
 " ---- Syntax Highlight ----
 set background=dark              " required
 syntax on
@@ -95,9 +94,6 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 " show hidden files
 let NERDTreeShowHidden=1
-
-" toggle NERDTree
-nnoremap <C-q> :NERDTreeToggle<CR>
 " ---- End NERDTree ----
 
 " ---- Git Gutter ----
@@ -110,8 +106,8 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " jump between hunks
-nnoremap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
-nnoremap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
+nmap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
+nmap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
 " ---- End Git Gutter ----
 
 " ---- Easy Align ----
@@ -124,10 +120,10 @@ nmap ga <Plug>(EasyAlign)
 
 " ---- Tab ----
 " jump to the between tabs
-nnoremap <Tab>   gt
-nnoremap <S-Tab> gT
-" nnoremap <C-j> :+tabmove<cr>
-" nnoremap <C-k> :-tabmove<cr>
+nmap <C-h> gT
+nmap <C-l> gt
+" nmap <C-j> :+tabmove<cr>
+" nmap <C-k> :-tabmove<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
@@ -145,22 +141,29 @@ let g:go_fmt_autosave = 1
 
 " ---- Trinity ----
 " ctags source code browser
-nmap <F8>  :TrinityToggleAll<CR>
+" nmap <F8>  :TrinityToggleAll<CR>
 
 " Open and close the Source Explorer separately
-nmap <F9>  :TrinityToggleSourceExplorer<CR>
+" nmap <F9>  :TrinityToggleSourceExplorer<CR>
+nmap <F8>  :SrcExplToggle<CR>
 
 " Open and close the Taglist separately
-nmap <F10> :TrinityToggleTagList<CR>
+" nmap <F10> :TrinityToggleTagList<CR>
+nmap <F9> :TlistToggle<CR>
 
 " Open and close the NERD Tree separately
-nmap <F11> :TrinityToggleNERDTree<CR>
+" nmap <F11> :TrinityToggleNERDTree<CR>
+nmap <C-q> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 " ---- End Trinity ----
 
 " ---- Window ----
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+" nmap <C-h> <C-w>h
+" nmap <C-j> <C-w>j
+" nmap <C-k> <C-w>k
+" nmap <C-l> <C-w>l
 " ---- End Window ----
 
+" ---- Tag ---
+" Open tag in new tab
+nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
+" ---- End Tag ---
