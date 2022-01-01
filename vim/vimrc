@@ -168,4 +168,5 @@ nmap <C-q> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
 " ---- End Tag ---
 
+" Update
 " curl -L http://get.akiicat.com | bash -s -- vim
