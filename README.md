@@ -13,12 +13,14 @@ sudo apt install -y git curl
 ### crul
 
 ```shell
+sudo apt install -y git curl
 curl -L http://get.akiicat.com | bash -s -- vim git tmux bash
 ```
 
 ### wget
 
 ```shell
+sudo apt install -y git curl
 wget -O - http://get.akiicat.com | bash -s -- vim git tmux bash
 ```
 
