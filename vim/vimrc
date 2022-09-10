@@ -122,8 +122,8 @@ nmap ga <Plug>(EasyAlign)
 " jump to the between tabs
 nmap <C-h> gT
 nmap <C-l> gt
-" nmap <C-j> :+tabmove<cr>
-" nmap <C-k> :-tabmove<cr>
+nmap <C-S-h> :tabmove -1<cr>
+nmap <C-S-l> :tabmove +1<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
