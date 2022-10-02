@@ -1,7 +1,13 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" filetype
+filetype on
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
 
-set directory=/tmp            " set swap file path
+set nocompatible                " don't bother with vi compatibility. should probably put it at the very start.
+
+silent !mkdir -p ~/.vim/swap
+set directory^=$HOME/.vim/swap// " set swap file path
 
 call plug#begin()
 
@@ -13,6 +19,7 @@ Plug 'ctrlpvim/ctrlp.vim'       " find files
 
 " trace code
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'preservim/tagbar'
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
 " Plug 'wenlongche/Trinity'
@@ -41,11 +48,13 @@ call plug#end()
 " vim-go
 " :GoInstallBinaries
 
-filetype plugin indent on    " required
-
 " Put your non-Plugin stuff after this line
-
 " ---- Settings ----
+set autoread                    " reload files when changed on disk, i.e. via `git checkout`
+set shortmess=atI
+
+set magic                       " For regular expressions turn magic on
+
 set number
 set autoindent
 set smartindent
@@ -122,8 +131,8 @@ nmap ga <Plug>(EasyAlign)
 " jump to the between tabs
 nmap <C-h> gT
 nmap <C-l> gt
-nmap <C-S-h> :tabmove -1<cr>
-nmap <C-S-l> :tabmove +1<cr>
+" nmap <C-j> :+tabmove<cr>
+" nmap <C-k> :-tabmove<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
@@ -138,6 +147,14 @@ vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 " ---- End Vim Go ----
+
+" ---- Tag Bar ----
+" Open and close the Tag Bar
+nmap <F7> :TagbarToggle<CR>
+
+" set tagbar on the left side
+let g:tagbar_position = 'leftabove'
+" ---- End Tag Bar ----
 
 " ---- Trinity ----
 " ctags source code browser
