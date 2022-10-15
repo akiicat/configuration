@@ -1,36 +1,39 @@
-" filetype
-filetype on
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+set nocompatible                 " be iMproved, required, will reset cpoptions
+filetype off                     " required
 
-set nocompatible                " don't bother with vi compatibility. should probably put it at the very start.
-
-silent !mkdir -p ~/.vim/swap
+if !isdirectory($HOME.'/.vim/swap/')
+    silent call mkdir ($HOME.'/.vim/swap/', 'p', 0700)
+endif
 set directory^=$HOME/.vim/swap// " set swap file path
+
+let mapleader = ','              " set leader
+let g:mapleader = ','            " set leader
 
 call plug#begin()
 
 Plug 'mg979/vim-visual-multi'
+Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'joe-skb7/cscope-maps'
 Plug 'ctrlpvim/ctrlp.vim'       " find files
 
 " trace code
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'preservim/tagbar'
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
+Plug 'preservim/tagbar'
+Plug 'hari-rangarajan/CCTree'
+Plug 'will133/vim-dirdiff'
 " Plug 'wenlongche/Trinity'
 
 " Optional
-Plug 'junegunn/vim-easy-align'
+" Plug 'mattn/emmet-vim'            " html jxs
+" Plug 'justinmk/vim-ipmotion'    " jump around paragraphs
 " Plug 'mbbill/undotree'
 " Plug 'rstacruz/sparkup', {'rtp': 'vim'}
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Syntax highlighting
-Plug 'itchyny/lightline.vim' " Light line status bar
 Plug 'ap/vim-css-color'
 " Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 " Plug 'posva/vim-vue', { 'for': 'vue' }
@@ -38,6 +41,12 @@ Plug 'ap/vim-css-color'
 " Plug 'slim-template/vim-slim', { 'for': ['slim'] }
 " Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 " Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn'] }
+
+" theme
+Plug 'itchyny/lightline.vim' " Light line status bar
+Plug 'flazz/vim-colorschemes'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'akiicat/vim-switching-colors'
 
 call plug#end()
 
@@ -48,53 +57,139 @@ call plug#end()
 " vim-go
 " :GoInstallBinaries
 
+filetype plugin indent on    " required
+
 " Put your non-Plugin stuff after this line
+
 " ---- Settings ----
-set autoread                    " reload files when changed on disk, i.e. via `git checkout`
-set shortmess=atI
+" file
+set noautoread                 " Reload files when changed on disk, i.e. via `git checkout` (default off)
+set noautowrite                " Saves the file automatically when you use the :n (or :p, :first, :last) commands to switch to another file. (default off)
+set noconfirm                  " Prompt confirmation on save
+set history=2000               " How many lines of history vim has to remember (default 50)
+set updatetime=750             " Git Gutter, Swap file, vim window update time (default 4000)
+set nobackup                   " Do not keep a backup file (default nobackup)
 
-set magic                       " For regular expressions turn magic on
+" command
+set magic                      " For regular expressions turn magic on (default magic)
+set wildmode=longest,list      " Command complete. reference to: `:h wildmode`
+" set wildignore=*.o,*~,*.pyc,*.class
+" set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
+" set wildmenu                 " require wildmode include full
+" set wildmode=list:longest,full
+set completeopt=menu,preview   " Setting completion menu (default menu,preview)
+" set whichwrap+=<,>,h,l,[,]   " Allow specified keys that move the cursor left/right to move to the previous/next line when the cursor is on the first/last character in the line. (defualt b,s)
+
+" view
 set number
-set autoindent
-set smartindent
-set smarttab
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set expandtab
-set nowrap
-set updatetime=100             " Git Gutter, vim window update time default 4000
-set backspace=indent,eol,start " backspace issue on vim 8
-set wildmode=longest,list      " Command complete. reference to: `:h :wildmode`
-set laststatus=2               " Light Line Status Bar
+set norelativenumber
+set title                      " Change the terminal's title (default notitle)
+set shortmess=filnxtToOI       " Set status bar (default filnxtToOS)
+set laststatus=2               " Always show the status light line status bar (default 1)
+set showtabline=2              " Always show the tabs (default 1)
+
+" scroll
+set nowrap                     " Display long lines (default wrap)
+set scrolloff=0                " Minimal number of screen lines to keep above and below the cursor. (default 0)
+set sidescroll=1
+set sidescrolloff=0            " The minimal number of screen columns to keep to the left and to the right of the cursor if 'nowrap' is set.
+
+" indent
+set autoindent                 " Copy indent from current line when starting a new line
+set smartindent                " Do smart autoindenting when starting a new line. Works for C-like programs. If 'cindent' and 'indentexpr' is unset
+set shiftround                 " Round indent to multiple of 'shiftwidth'. CTRL-T and CTRL-D in Insert mode always round the indent. (default off)
+
+set expandtab                  " Tab to space. See also :retab
+set nosmarttab                 " When on, a <Tab> in front of a line inserts blanks according to 'shiftwidth'. When off, a <Tab> always inserts blanks according to 'tabstop' or 'softtabstop'. (default off)
+
+set shiftwidth=4               " Used for 'cindent', >>, <<, etc.
+set softtabstop=4              " Number of spaces that a <Tab> counts for while performing editing operations.
+set tabstop=4                  " Number of spaces that a <Tab> in the file counts for.
+
+set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks, and the start of insert. Backspace issue on vim 8.
+
+" split
+set splitbelow                 " When on, splitting a window will put the new window below the current one. (default off)
+set splitright                 " When on, splitting a window will put the new window right of the current one. (default off)
+
+" search
+set nohlsearch                 " Add a colored background to all the search results
+set noincsearch                " See the search results as you start typing the search word
+set noignorecase               " Perform case insensitive search
+set nosmartcase                " If you enter a search query in lowercase, the search will be case insensitive. If you enter a search query that contains one or more letters in uppercase, the search will be sensitive.
+
+" fold
+set foldopen-=block
+nnoremap <expr> } foldclosed(search('^$', 'Wn')) == -1 ? "}" : "}j}"
+nnoremap <expr> { foldclosed(search('^$', 'Wnb')) == -1 ? "{" : "{k{"
+
+" set foldmethod=manual          " manual indent marker syntax diff
+set foldmethod=indent          " manual indent marker syntax diff
+set foldcolumn=3
+
+" set spell
+
 " ---- End Settings ----
 
 " Remove Trailing Whitespaces
 " https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
 autocmd BufWritePre * %s/\s\+$//e
+
+
+" set colorcolumn=81,121
+" highlight ColorColumn ctermbg=grey
+
+" set cursorcolumn               " show current vertial location
+" set cursorline                 " show current horizon location
+" hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE
+" hi CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE
 "
+" augroup Foo
+"   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
+"   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
+" augroup END
 
 " ---- Syntax Highlight ----
-set background=dark              " required
 syntax on
+set t_Co=256
 
-colors ron
-hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
-
-function! ToggleColors()
-        if (get(g:, 'colors_name', '') == "morning")
-                colors ron
-                hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
-        elseif (get(g:, 'colors_name', '') == "ron")
-                colors default
-                hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
-        else
-                colors morning
-        endif
+function! MyHighlight() abort
+    hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
 endfunction
-nmap <F7> :call ToggleColors()<CR>
+
+function! MyFold() abort
+    " hi Folded ctermbg=NONE guibg=NONE
+    hi FoldColumn ctermbg=NONE guibg=NONE
+endfunction
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme * call MyFold()
+    autocmd ColorScheme ron,default call MyHighlight()
+augroup END
+
+colorscheme ron
 " ---- End Syntax Highlight ----
+
+" ---- Vim Switching Colors ----
+let g:themes = 'ron default scheakur github'
+
+nnoremap <F7> :call NextColor(1)<CR>
+nnoremap <S-F7> :call NextColor(-1)<CR>
+" ---- End Vim Switching Colors ----
+
+" ---- Lightline ----
+if !has('gui_running')
+    set t_Co=256
+endif
+
+set showcmd                      " Display incomplete commands (default off)
+set noshowmode                   " Display current modes `-- INSERT --` is unnecessary anymore (default on)
+set showmatch                    " Jump to matches when entering parentheses (default off)
+set matchtime=5                  " Tenths of a second to show the matching parenthesis (default 5) 0.5 second
+" ---- End Lightline ----
+
 
 " ---- NERDTree ----
 " open NERDTree automatically when vim starts up on opening a directory
@@ -131,8 +226,8 @@ nmap ga <Plug>(EasyAlign)
 " jump to the between tabs
 nmap <C-h> gT
 nmap <C-l> gt
-" nmap <C-j> :+tabmove<cr>
-" nmap <C-k> :-tabmove<cr>
+" nmap <C-S-h> :tabmove -1<cr>
+" nmap <C-S-l> :tabmove +1<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
@@ -147,14 +242,6 @@ vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 " ---- End Vim Go ----
-
-" ---- Tag Bar ----
-" Open and close the Tag Bar
-nmap <F7> :TagbarToggle<CR>
-
-" set tagbar on the left side
-let g:tagbar_position = 'leftabove'
-" ---- End Tag Bar ----
 
 " ---- Trinity ----
 " ctags source code browser
