@@ -32,6 +32,9 @@ Plug 'will133/vim-dirdiff'
 " Plug 'mbbill/undotree'
 " Plug 'rstacruz/sparkup', {'rtp': 'vim'}
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'vim-scripts/RltvNmbr.vim'     " show both number and relativenumber
+Plug 'vim-scripts/google.vim'           " Indent file for Google C++ Coding Style
+Plug 'vim-scripts/autoload_cscope.vim'
 
 " Syntax highlighting
 Plug 'ap/vim-css-color'
@@ -136,7 +139,6 @@ set foldcolumn=3
 " https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
 autocmd BufWritePre * %s/\s\+$//e
 
-
 " set colorcolumn=81,121
 " highlight ColorColumn ctermbg=grey
 
@@ -226,8 +228,8 @@ nmap ga <Plug>(EasyAlign)
 " jump to the between tabs
 nmap <C-h> gT
 nmap <C-l> gt
-" nmap <C-S-h> :tabmove -1<cr>
-" nmap <C-S-l> :tabmove +1<cr>
+nmap <C-j> :tabmove -1<cr>
+nmap <C-k> :tabmove +1<cr>
 " ---- End Tab ----
 
 " ---- Copy and Paste ----
@@ -274,3 +276,31 @@ nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
 
 " Update
 " curl -L http://get.akiicat.com | bash -s -- vim
+
+" Fold columns Fold method
+" manual_no_foldcolumn manual syntax indent diff
+nmap <leader>fm :set foldmethod=manual<CR>
+nmap <leader>fc :set foldcolumn=3<CR>
+
+
+" Comment color
+
+
+" paste
+nmap <leader>p :set paste!<CR>
+
+" wrap
+nmap <leader>w :set wrap!<CR>
+
+" nu rnu
+nmap <leader>n :set number!<CR>
+nmap <leader>r :set relativenumber!<CR>
+
+" cursorsolum
+nmap <leader>c :set cursorcolumn! cursorline!<CR>
+
+" set hlsearch
+" set incsearch
+" set ignorecase
+" set smartcase
+nmap <leader>h :set hlsearch! incsearch!<CR>
