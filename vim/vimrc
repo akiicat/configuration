@@ -35,6 +35,7 @@ Plug 'will133/vim-dirdiff'
 " Plug 'vim-scripts/RltvNmbr.vim'     " show both number and relativenumber
 Plug 'vim-scripts/google.vim'           " Indent file for Google C++ Coding Style
 Plug 'vim-scripts/autoload_cscope.vim'
+Plug 'Yggdroot/indentLine'
 
 " Syntax highlighting
 Plug 'ap/vim-css-color'
@@ -127,9 +128,9 @@ set foldopen-=block
 nnoremap <expr> } foldclosed(search('^$', 'Wn')) == -1 ? "}" : "}j}"
 nnoremap <expr> { foldclosed(search('^$', 'Wnb')) == -1 ? "{" : "{k{"
 
-" set foldmethod=manual          " manual indent marker syntax diff
 set foldmethod=indent          " manual indent marker syntax diff
-set foldcolumn=3
+set foldlevel=99               " expand all indent fold
+set foldcolumn=3               " a column with the specified width is shown at the side of the window which indicates open and closed folds.  The maximum value is 12. (default 0)
 
 " set spell
 
@@ -234,7 +235,7 @@ nmap <C-k> :tabmove +1<cr>
 
 " ---- Copy and Paste ----
 " copy gy
-vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
+" vmap <silent> gy :<C-U>silent<Space>'<,'>w<Space>!pbcopy<CR>
 
 " paste alt + v
 " nmap <silent> √ :r!<Space>pbpaste<CR>
@@ -251,7 +252,7 @@ let g:go_fmt_autosave = 1
 
 " Open and close the Source Explorer separately
 " nmap <F9>  :TrinityToggleSourceExplorer<CR>
-nmap <F8>  :SrcExplToggle<CR>
+nmap <F8> :SrcExplToggle<CR>
 
 " Open and close the Taglist separately
 " nmap <F10> :TrinityToggleTagList<CR>
@@ -282,10 +283,6 @@ nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
 nmap <leader>fm :set foldmethod=manual<CR>
 nmap <leader>fc :set foldcolumn=3<CR>
 
-
-" Comment color
-
-
 " paste
 nmap <leader>p :set paste!<CR>
 
@@ -299,8 +296,53 @@ nmap <leader>r :set relativenumber!<CR>
 " cursorsolum
 nmap <leader>c :set cursorcolumn! cursorline!<CR>
 
+" nmap <leader>l :set list!<CR>
+let g:indentLine_char = '┊'
+nmap <leader>l :IndentLinesToggle<CR>
+
+
 " set hlsearch
 " set incsearch
 " set ignorecase
 " set smartcase
 nmap <leader>h :set hlsearch! incsearch!<CR>
+
+" set foldmethod foldlevel foldcolumn
+let s:foldmethods = ['manual', 'indent', 'syntax', 'diff']
+let s:foldlevels = ['99', '99', '99', '0']
+
+nmap <leader><leader>f :call NextFoldMethod(1)<CR>
+nmap <leader><leader>F :call NextFoldMethod(-1)<CR>
+function! NextFoldMethod(count)
+    let method = split(execute('set foldmethod'), '=')[1]
+    let current = index(s:foldmethods, method)
+    let current = (current + a:count) % len(s:foldmethods)
+    execute 'set foldmethod='.s:foldmethods[current]
+    execute 'set foldlevel='.s:foldlevels[current]
+    echo s:foldmethods[current]
+endfunction
+
+nmap <leader>f :call NextFoldColumn()<CR>
+function! NextFoldColumn()
+    if split(execute('set foldcolumn'), '=')[1] == '0'
+        set foldcolumn=3
+    else
+        set foldcolumn=0
+    endif
+endfunction
+
+
+nmap <leader>q :call CopyMode()<CR>
+let s:toggle = 0
+
+function! CopyMode()
+    if s:toggle == 0
+        let s:toggle = 1
+        set nonumber norelativenumber foldcolumn=0
+        execute('IndentLinesDisable')
+    else
+        let s:toggle = 0
+        set number foldcolumn=3
+        execute('IndentLinesEnable')
+    endif
+endfunction
