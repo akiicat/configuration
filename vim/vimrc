@@ -14,7 +14,6 @@ call plug#begin()
 Plug 'mg979/vim-visual-multi'
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
-Plug 'joe-skb7/cscope-maps'
 Plug 'ctrlpvim/ctrlp.vim'       " find files
 
 " trace code
@@ -22,8 +21,10 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
 Plug 'preservim/tagbar'
-Plug 'hari-rangarajan/CCTree'
+Plug 'hari-rangarajan/CCTree'       " https://github.com/hari-rangarajan/CCTree/blob/master/plugin/cctree.vim
 Plug 'will133/vim-dirdiff'
+Plug 'akiicat/autoload_cscope.vim'
+" Plug 'joe-skb7/cscope-maps'
 " Plug 'wenlongche/Trinity'
 
 " Optional
@@ -34,8 +35,8 @@ Plug 'will133/vim-dirdiff'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'vim-scripts/RltvNmbr.vim'     " show both number and relativenumber
 Plug 'vim-scripts/google.vim'           " Indent file for Google C++ Coding Style
-Plug 'vim-scripts/autoload_cscope.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'simnalamburt/vim-mundo'       " undo record
 
 " Syntax highlighting
 Plug 'ap/vim-css-color'
@@ -43,7 +44,6 @@ Plug 'ap/vim-css-color'
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 " Plug 'slim-template/vim-slim', { 'for': ['slim'] }
-" Plug 'prettier/vim-prettier', { 'do': 'npm install', 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 " Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn'] }
 
 " theme
@@ -77,11 +77,11 @@ set nobackup                   " Do not keep a backup file (default nobackup)
 " command
 set magic                      " For regular expressions turn magic on (default magic)
 set wildmode=longest,list      " Command complete. reference to: `:h wildmode`
+" set wildmenu                 " Require wildmode include full
 " set wildignore=*.o,*~,*.pyc,*.class
 " set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
-" set wildmenu                 " require wildmode include full
-" set wildmode=list:longest,full
+" edit
 set completeopt=menu,preview   " Setting completion menu (default menu,preview)
 " set whichwrap+=<,>,h,l,[,]   " Allow specified keys that move the cursor left/right to move to the previous/next line when the cursor is on the first/last character in the line. (defualt b,s)
 
@@ -123,76 +123,46 @@ set noincsearch                " See the search results as you start typing the 
 set noignorecase               " Perform case insensitive search
 set nosmartcase                " If you enter a search query in lowercase, the search will be case insensitive. If you enter a search query that contains one or more letters in uppercase, the search will be sensitive.
 
+" status line
+set showcmd                    " Display incomplete commands (default off)
+set noshowmode                 " Display current modes `-- INSERT --` is unnecessary anymore (default on)
+set noshowmatch                " Jump to matches when entering parentheses (default off)
+set matchtime=5                " Tenths of a second to show the matching parenthesis (default 5) 0.5 second
+
 " fold
-set foldopen-=block
-nnoremap <expr> } foldclosed(search('^$', 'Wn')) == -1 ? "}" : "}j}"
-nnoremap <expr> { foldclosed(search('^$', 'Wnb')) == -1 ? "{" : "{k{"
-
-set foldmethod=indent          " manual indent marker syntax diff
-set foldlevel=99               " expand all indent fold
-set foldcolumn=3               " a column with the specified width is shown at the side of the window which indicates open and closed folds.  The maximum value is 12. (default 0)
-
-" set spell
-
+set foldmethod=syntax          " Manual indent marker syntax diff
+set foldcolumn=3               " A column with the specified width is shown at the side of the window which indicates open and closed folds.  The maximum value is 12. (default 0)
+set foldopen-=block            " Preventing vim to auto-expand folds
 " ---- End Settings ----
 
-" Remove Trailing Whitespaces
-" https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
-autocmd BufWritePre * %s/\s\+$//e
-
-" set colorcolumn=81,121
-" highlight ColorColumn ctermbg=grey
-
-" set cursorcolumn               " show current vertial location
-" set cursorline                 " show current horizon location
-" hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE
-" hi CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE
-"
-" augroup Foo
-"   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
-"   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
-" augroup END
+" ---- CCTree ----
+let CCTreeEnhancedSymbolProcessing=1
+let g:CCTreeKeyHilightTree="<C-\\>l"
+let g:CCTreeRecursiveDepth=0
+let g:CCTreeMinVisibleDepth=0
+let g:CCTreeWindowVertical=0
+let g:CCTreeOrientation="botright"
+let g:CCTreeWindowHeight=8
+" ---- End CCTree ----
 
 " ---- Syntax Highlight ----
 syntax on
 set t_Co=256
 
-function! MyHighlight() abort
-    hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
-endfunction
+hi ColorColumn ctermbg=52
+hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE
+hi CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE
 
-function! MyFold() abort
-    " hi Folded ctermbg=NONE guibg=NONE
-    hi FoldColumn ctermbg=NONE guibg=NONE
-endfunction
-
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme * call MyFold()
-    autocmd ColorScheme ron,default call MyHighlight()
-augroup END
-
+autocmd ColorScheme ron,default hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
 colorscheme ron
 " ---- End Syntax Highlight ----
 
 " ---- Vim Switching Colors ----
 let g:themes = 'ron default scheakur github'
 
-nnoremap <F7> :call NextColor(1)<CR>
-nnoremap <S-F7> :call NextColor(-1)<CR>
+nmap <F3> :call NextColor(1)<CR>
+nmap <S-F3> :call NextColor(-1)<CR>
 " ---- End Vim Switching Colors ----
-
-" ---- Lightline ----
-if !has('gui_running')
-    set t_Co=256
-endif
-
-set showcmd                      " Display incomplete commands (default off)
-set noshowmode                   " Display current modes `-- INSERT --` is unnecessary anymore (default on)
-set showmatch                    " Jump to matches when entering parentheses (default off)
-set matchtime=5                  " Tenths of a second to show the matching parenthesis (default 5) 0.5 second
-" ---- End Lightline ----
-
 
 " ---- NERDTree ----
 " open NERDTree automatically when vim starts up on opening a directory
@@ -246,22 +216,13 @@ let g:go_fmt_command = "goimports"
 let g:go_fmt_autosave = 1
 " ---- End Vim Go ----
 
-" ---- Trinity ----
-" ctags source code browser
-" nmap <F8>  :TrinityToggleAll<CR>
+" ---- Indent ----
+let g:indentLine_char = '┊'
 
-" Open and close the Source Explorer separately
-" nmap <F9>  :TrinityToggleSourceExplorer<CR>
-nmap <F8> :SrcExplToggle<CR>
-
-" Open and close the Taglist separately
-" nmap <F10> :TrinityToggleTagList<CR>
-nmap <F9> :TlistToggle<CR>
-
-" Open and close the NERD Tree separately
-" nmap <F11> :TrinityToggleNERDTree<CR>
-nmap <C-q> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-" ---- End Trinity ----
+" Reselect visual block after indent/outdent
+vmap < <gv
+vmap > >gv
+" ---- End Indent ----
 
 " ---- Window ----
 " nmap <C-h> <C-w>h
@@ -272,77 +233,115 @@ nmap <C-q> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 " ---- Tag ---
 " Open tag in new tab
-nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
+" nmap g<C-]> :execute 'tab tag '.expand('<cword>')<CR>
 " ---- End Tag ---
 
-" Update
-" curl -L http://get.akiicat.com | bash -s -- vim
-
-" Fold columns Fold method
-" manual_no_foldcolumn manual syntax indent diff
-nmap <leader>fm :set foldmethod=manual<CR>
-nmap <leader>fc :set foldcolumn=3<CR>
-
+" ---- Control ----
 " paste
-nmap <leader>p :set paste!<CR>
+set pastetoggle=<F2>
+autocmd InsertLeave * set nopaste
 
-" wrap
 nmap <leader>w :set wrap!<CR>
-
-" nu rnu
 nmap <leader>n :set number!<CR>
 nmap <leader>r :set relativenumber!<CR>
-
-" cursorsolum
+nmap <leader>h :set hlsearch!<CR>
+nmap <leader>u :set ignorecase!<CR>
 nmap <leader>c :set cursorcolumn! cursorline!<CR>
+" augroup Foo
+"   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
+"   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
+" augroup END
 
-" nmap <leader>l :set list!<CR>
-let g:indentLine_char = '┊'
-nmap <leader>l :IndentLinesToggle<CR>
+" zoom in & out
+nmap <leader>i <c-w>_ \| <c-w>\|
+nmap <leader>o <c-w>=
 
+nmap <leader>e :SrcExplToggle<CR>
+nmap <leader>t :TlistToggle<CR>
+nmap <leader>q :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nmap <leader>; :IndentLinesToggle<CR>
 
-" set hlsearch
-" set incsearch
-" set ignorecase
-" set smartcase
-nmap <leader>h :set hlsearch! incsearch!<CR>
-
-" set foldmethod foldlevel foldcolumn
+nmap <leader>z :call NextFoldMethod(1)<CR>
+nmap <leader>Z :call NextFoldMethod(-1)<CR>
 let s:foldmethods = ['manual', 'indent', 'syntax', 'diff']
-let s:foldlevels = ['99', '99', '99', '0']
-
-nmap <leader><leader>f :call NextFoldMethod(1)<CR>
-nmap <leader><leader>F :call NextFoldMethod(-1)<CR>
 function! NextFoldMethod(count)
     let method = split(execute('set foldmethod'), '=')[1]
     let current = index(s:foldmethods, method)
     let current = (current + a:count) % len(s:foldmethods)
     execute 'set foldmethod='.s:foldmethods[current]
-    execute 'set foldlevel='.s:foldlevels[current]
-    echo s:foldmethods[current]
+    set foldmethod?
 endfunction
 
 nmap <leader>f :call NextFoldColumn()<CR>
 function! NextFoldColumn()
     if split(execute('set foldcolumn'), '=')[1] == '0'
-        set foldcolumn=3
+        set foldcolumn=3 foldcolumn?
     else
-        set foldcolumn=0
+        set foldcolumn=0 foldcolumn?
     endif
 endfunction
 
-
-nmap <leader>q :call CopyMode()<CR>
+nmap <leader>v :call CopyMode()<CR>
 let s:toggle = 0
-
 function! CopyMode()
     if s:toggle == 0
         let s:toggle = 1
         set nonumber norelativenumber foldcolumn=0
-        execute('IndentLinesDisable')
+        execute('IndentLinesDisable')      " Plug 'Yggdroot/indentLine'
     else
         let s:toggle = 0
         set number foldcolumn=3
-        execute('IndentLinesEnable')
+        execute('IndentLinesEnable')       " Plug 'Yggdroot/indentLine'
     endif
 endfunction
+
+nmap <leader>l :call ColorColumn()<CR>
+let s:colorcolumntoggle = 0
+function! ColorColumn()
+    if s:colorcolumntoggle == 0
+        let s:colorcolumntoggle = 1
+        set colorcolumn=81,121
+    else
+        let s:colorcolumntoggle = 0
+        set colorcolumn=
+    endif
+endfunction
+" ---- End Control ----
+
+" ---- Event ----
+" Indent
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab autoindent
+autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
+" autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+
+" Remove Trailing Whitespaces
+" https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
+autocmd BufWritePre * %s/\s\+$//e
+
+" Fold
+autocmd Syntax * setlocal foldmethod=syntax
+autocmd Syntax * normal zR
+
+autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+function! AutoSetFileHead()
+    if &filetype == 'sh'
+        call setline(1, "\#!/bin/bash")
+    endif
+    if &filetype == 'python'
+        call setline(1, "\#!/usr/bin/env python")
+        call append(1, "\# encoding: utf-8")
+    endif
+    normal Go
+endfunc
+" ---- End Event ----
+
+" cscope
+" find . -name '*.h' -o -name '*.c' -o -name '*.cc' -o -name '*.cpp' > cscope.files
+" cscope -i cscope.files
+
+" set tags=./tags,./TAGS,tags,TAGS
+" autocmd VimEnter * execute('CCTreeLoadDB cscope.out')
+
+" Update
+" curl -L http://get.akiicat.com | bash -s -- vim
+
