@@ -9,6 +9,12 @@ set directory^=$HOME/.vim/swap// " set swap file path
 let mapleader = ','              " set leader
 let g:mapleader = ','            " set leader
 
+" Install
+" vim +PlugInstall
+" vim +PlugInstall +qall
+" :PlugInstall
+" vim-go
+" :GoInstallBinaries
 call plug#begin()
 
 Plug 'mg979/vim-visual-multi'
@@ -51,19 +57,76 @@ Plug 'itchyny/lightline.vim' " Light line status bar
 Plug 'flazz/vim-colorschemes'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'akiicat/vim-switching-colors'
+Plug 'tomasiser/vim-code-dark' " vscode color theme
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
-" Install
-" vim +PlugInstall
-" vim +PlugInstall +qall
-" :PlugInstall
-" vim-go
-" :GoInstallBinaries
-
 filetype plugin indent on    " required
-
 " Put your non-Plugin stuff after this line
+
+" Plugin Configuration
+
+" ---- CCTree ----
+let CCTreeEnhancedSymbolProcessing=1
+let g:CCTreeKeyHilightTree="<C-\\>l"
+let g:CCTreeRecursiveDepth=0
+let g:CCTreeMinVisibleDepth=0
+let g:CCTreeWindowVertical=0
+let g:CCTreeOrientation="botright"
+let g:CCTreeWindowHeight=8
+" ---- End CCTree ----
+
+" ---- Vim Go ----
+let g:go_fmt_command = "goimports"
+let g:go_fmt_autosave = 1
+" ---- End Vim Go ----
+
+" ---- NERDTree ----
+" open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | :q | endif
+
+" show hidden files
+let NERDTreeShowHidden=1
+" ---- End NERDTree ----
+
+" ---- Git Gutter ----
+" get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
+hi GitGutterAdd    ctermfg=Green
+hi GitGutterChange ctermfg=Yellow
+hi GitGutterDelete ctermfg=Red
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
+
+" jump between hunks
+nmap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
+nmap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
+" ---- End Git Gutter ----
+
+" ---- Easy Align ----
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" ---- End Easy Align ----
+
+" ---- Vim Switching Colors ----
+let g:themes = 'ron default codedark scheakur github'
+
+nmap <F3> :call NextColor(1)<CR>
+nmap <S-F3> :call NextColor(-1)<CR>
+" ---- End Vim Switching Colors ----
+
+" ---- Indent Line ----
+let g:indentLine_char = '┊'
+" ---- End Indent Line ----
+
+
+" Non Plugin Configuration
 
 " ---- Settings ----
 " file
@@ -135,65 +198,39 @@ set foldcolumn=3               " A column with the specified width is shown at t
 set foldopen-=block            " Preventing vim to auto-expand folds
 " ---- End Settings ----
 
-" ---- CCTree ----
-let CCTreeEnhancedSymbolProcessing=1
-let g:CCTreeKeyHilightTree="<C-\\>l"
-let g:CCTreeRecursiveDepth=0
-let g:CCTreeMinVisibleDepth=0
-let g:CCTreeWindowVertical=0
-let g:CCTreeOrientation="botright"
-let g:CCTreeWindowHeight=8
-" ---- End CCTree ----
-
 " ---- Syntax Highlight ----
 syntax on
 set t_Co=256
+" set termguicolors
 
-hi ColorColumn ctermbg=52
-hi CursorLine ctermfg=NONE ctermbg=237 cterm=NONE
-hi CursorColumn ctermfg=NONE ctermbg=237 cterm=NONE
+autocmd ColorScheme ron,default call SetColor()
+function! SetColor()
+    " hi Comment ctermfg=8
+    hi Normal guibg=NONE ctermbg=NONE
+    " hi Comment term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Gray80
+    hi ColorColumn ctermbg=52
+    hi CursorColumn ctermbg=237
+    hi CursorLine ctermbg=237 cterm=none
+    hi CursorLineNr ctermbg=237 cterm=none
+    hi SignColumn ctermbg=none
+    hi FoldColumn ctermbg=none
+    " hi Comment term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Gray80
+    " hi Folded term=standout ctermfg=14 ctermbg=235 guifg=none guibg=none
+endfunc
 
-autocmd ColorScheme ron,default hi Comment ctermfg=DarkGray guifg=DarkGray cterm=NONE gui=NONE
 colorscheme ron
+
+" vim diff color
+" https://stackoverflow.com/questions/2019281/load-different-colorscheme-when-using-vimdiff
 " ---- End Syntax Highlight ----
 
-" ---- Vim Switching Colors ----
-let g:themes = 'ron default scheakur github'
-
-nmap <F3> :call NextColor(1)<CR>
-nmap <S-F3> :call NextColor(-1)<CR>
-" ---- End Vim Switching Colors ----
-
-" ---- NERDTree ----
-" open NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | :q | endif
-
-" show hidden files
-let NERDTreeShowHidden=1
-" ---- End NERDTree ----
-
-" ---- Git Gutter ----
-" get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
-hi GitGutterAdd    ctermfg=Green
-hi GitGutterChange ctermfg=Yellow
-hi GitGutterDelete ctermfg=Red
-nmap ghs <Plug>(GitGutterStageHunk)
-nmap ghu <Plug>(GitGutterUndoHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
-
-" jump between hunks
-nmap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
-nmap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
-" ---- End Git Gutter ----
-
-" ---- Easy Align ----
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" ---- End Easy Align ----
+" ---- Search ----
+nmap n nzz
+nmap N Nzz
+nmap * *zz
+nmap # #zz
+nmap g* g*zz
+" ---- End Search ----
 
 " ---- Tab ----
 " jump to the between tabs
@@ -211,14 +248,7 @@ nmap <C-k> :tabmove +1<cr>
 " nmap <silent> √ :r!<Space>pbpaste<CR>
 " ---- End Copy and Paste ----
 
-" ---- Vim Go ----
-let g:go_fmt_command = "goimports"
-let g:go_fmt_autosave = 1
-" ---- End Vim Go ----
-
 " ---- Indent ----
-let g:indentLine_char = '┊'
-
 " Reselect visual block after indent/outdent
 vmap < <gv
 vmap > >gv
@@ -287,11 +317,11 @@ function! CopyMode()
     if s:toggle == 0
         let s:toggle = 1
         set nonumber norelativenumber foldcolumn=0
-        execute('IndentLinesDisable')      " Plug 'Yggdroot/indentLine'
+        IndentLinesDisable      " Plug 'Yggdroot/indentLine'
     else
         let s:toggle = 0
         set number foldcolumn=3
-        execute('IndentLinesEnable')       " Plug 'Yggdroot/indentLine'
+        IndentLinesEnable       " Plug 'Yggdroot/indentLine'
     endif
 endfunction
 
@@ -300,7 +330,7 @@ let s:colorcolumntoggle = 0
 function! ColorColumn()
     if s:colorcolumntoggle == 0
         let s:colorcolumntoggle = 1
-        set colorcolumn=81,121
+        set colorcolumn=81,121,161
     else
         let s:colorcolumntoggle = 0
         set colorcolumn=
@@ -344,4 +374,19 @@ endfunc
 
 " Update
 " curl -L http://get.akiicat.com | bash -s -- vim
+
+let g:lightline = {
+      \ 'active': {
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'tabstop' ] ]
+      \ },
+      \ 'component_function': {
+      \   'tabstop': 'ShowTabStop'
+      \ },
+      \ }
+
+function! ShowTabStop()
+  return "spaces: ".split(execute('set tabstop?'), '=')[1]
+endfunction
 
