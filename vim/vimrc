@@ -258,7 +258,7 @@ function! SetRonColor()
     hi FoldColumn ctermbg=none
 endfunc
 
-autocmd ColorScheme codedark call SetGithubColor()
+autocmd ColorScheme codedark call SetVscodeColor()
 function! SetVscodeColor()
     hi CursorColumn                        ctermbg=235                         guibg=#262626
     hi CursorLine   cterm=none             ctermbg=235  gui=none               guibg=#262626
