@@ -4,6 +4,9 @@ filetype off                     " required
 if !isdirectory($HOME.'/.vim/swap/')
     silent call mkdir ($HOME.'/.vim/swap/', 'p', 0700)
 endif
+if !isdirectory($HOME.'/.vim/undo/')
+    silent call mkdir ($HOME.'/.vim/undo/', 'p', 0700)
+endif
 set directory^=$HOME/.vim/swap// " set swap file path
 
 let mapleader = ','              " set leader
@@ -38,15 +41,14 @@ Plug 'akiicat/autoload_cscope.vim'
 " Plug 'justinmk/vim-ipmotion'    " jump around paragraphs
 " Plug 'mbbill/undotree'
 " Plug 'rstacruz/sparkup', {'rtp': 'vim'}
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plug 'vim-scripts/RltvNmbr.vim'     " show both number and relativenumber
 Plug 'vim-scripts/google.vim'           " Indent file for Google C++ Coding Style
 Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'       " undo record
 
 " Syntax highlighting
-Plug 'ap/vim-css-color'
-" Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
+" Plug 'ap/vim-css-color'           " preview color
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 " Plug 'slim-template/vim-slim', { 'for': ['slim'] }
@@ -54,12 +56,21 @@ Plug 'ap/vim-css-color'
 
 " theme
 Plug 'itchyny/lightline.vim' " Light line status bar
-Plug 'flazz/vim-colorschemes'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'akiicat/vim-switching-colors'
+Plug 'akiicat/vim-github-theme'
 Plug 'tomasiser/vim-code-dark' " vscode color theme
+Plug 'akiicat/vim-switching-colors'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'rafi/awesome-vim-colorschemes'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+" Plug 'ericbn/vim-solarized'
+
+" syntax
+Plug 'bfrg/vim-cpp-modern'
+" Plug 'StanAngeloff/php.vim'
+" Plug 'hail2u/vim-css3-syntax'
+" Plug 'pangloss/vim-javascript'
+" Plug 'nikvdp/ejs-syntax', { 'for': 'ejs' }
 
 call plug#end()
 
@@ -84,26 +95,31 @@ let g:go_fmt_autosave = 1
 " ---- End Vim Go ----
 
 " ---- NERDTree ----
+" show hidden files
+let NERDTreeShowHidden=1
+
 " open NERDTree automatically when vim starts up on opening a directory
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | :q | endif
-
-" show hidden files
-let NERDTreeShowHidden=1
 " ---- End NERDTree ----
+
+" ---- Mundo ----
+autocmd BufEnter __Mundo__ set foldcolumn=0
+autocmd BufEnter __Mundo_Preview__ set foldcolumn=0
+" ---- End Mundo ----
 
 " ---- Git Gutter ----
 " get vim-gitgutter's original colours (based on git-diff's colours in my terminal):
-hi GitGutterAdd    ctermfg=Green
-hi GitGutterChange ctermfg=Yellow
-hi GitGutterDelete ctermfg=Red
+hi! GitGutterAdd    ctermfg=Green  guifg='#008000'
+hi! GitGutterChange ctermfg=Yellow guifg='#FFFF00'
+hi! GitGutterDelete ctermfg=Red    guifg='#FF0000'
 nmap ghs <Plug>(GitGutterStageHunk)
 nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " jump between hunks
-nmap <silent> <leader>x :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
-nmap <silent> <leader>gx :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
+nmap <silent> <leader>m :GitGutterNextHunk<CR>:GitGutterPreviewHunk<CR>
+nmap <silent> <leader>gm :GitGutterPrevHunk<CR>:GitGutterPreviewHunk<CR>
 " ---- End Git Gutter ----
 
 " ---- Easy Align ----
@@ -115,16 +131,40 @@ nmap ga <Plug>(EasyAlign)
 " ---- End Easy Align ----
 
 " ---- Vim Switching Colors ----
-let g:themes = 'ron default codedark scheakur github'
-
-nmap <F3> :call NextColor(1)<CR>
-nmap <S-F3> :call NextColor(-1)<CR>
+let g:themes = 'codedark github_light'
 " ---- End Vim Switching Colors ----
 
 " ---- Indent Line ----
 let g:indentLine_char = '┊'
+
+" let g:indentLine_setColors = 0
+
+" let g:indentLine_defaultGroup = 'IndentLine'
+
+let g:indentLine_color_gui = 'NONE'
+let g:indentLine_bgcolor_gui = 'NONE'
+
+" Disabling conceal for JSON and Markdown without disabling indentLine plugin
+let g:vim_json_conceal=0
+let g:markdown_syntax_conceal=0
 " ---- End Indent Line ----
 
+" ---- Light Line ----
+let g:lightline = {
+      \ 'active': {
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'tabstop' ] ]
+      \ },
+      \ 'component_function': {
+      \   'tabstop': 'ShowTabStop'
+      \ },
+      \ }
+
+function! ShowTabStop()
+  return "spaces: ".split(execute('set tabstop?'), '=')[1]
+endfunction
+" ---- End Light Line ----
 
 " Non Plugin Configuration
 
@@ -139,8 +179,8 @@ set nobackup                   " Do not keep a backup file (default nobackup)
 
 " command
 set magic                      " For regular expressions turn magic on (default magic)
-set wildmode=longest,list      " Command complete. reference to: `:h wildmode`
-" set wildmenu                 " Require wildmode include full
+set wildmode=longest,list,full      " Command complete. reference to: `:h wildmode`
+set wildmenu                 " Require wildmode include full
 " set wildignore=*.o,*~,*.pyc,*.class
 " set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
@@ -155,6 +195,7 @@ set title                      " Change the terminal's title (default notitle)
 set shortmess=filnxtToOI       " Set status bar (default filnxtToOS)
 set laststatus=2               " Always show the status light line status bar (default 1)
 set showtabline=2              " Always show the tabs (default 1)
+" set conceallevel=0             " Text is shown normally. no hiddden
 
 " scroll
 set nowrap                     " Display long lines (default wrap)
@@ -179,10 +220,11 @@ set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks,
 " split
 set splitbelow                 " When on, splitting a window will put the new window below the current one. (default off)
 set splitright                 " When on, splitting a window will put the new window right of the current one. (default off)
+set fillchars+=vert:│          " Continue splitting line
 
 " search
+set incsearch                  " See the search results as you start typing the search word
 set nohlsearch                 " Add a colored background to all the search results
-set noincsearch                " See the search results as you start typing the search word
 set noignorecase               " Perform case insensitive search
 set nosmartcase                " If you enter a search query in lowercase, the search will be case insensitive. If you enter a search query that contains one or more letters in uppercase, the search will be sensitive.
 
@@ -196,41 +238,40 @@ set matchtime=5                " Tenths of a second to show the matching parenth
 set foldmethod=syntax          " Manual indent marker syntax diff
 set foldcolumn=3               " A column with the specified width is shown at the side of the window which indicates open and closed folds.  The maximum value is 12. (default 0)
 set foldopen-=block            " Preventing vim to auto-expand folds
+set fillchars+=foldsep:│
+
+" undo
+set undofile                   " Enable persistent undo so that undo history persists across vim sessions
+set undodir=~/.vim/undo
 " ---- End Settings ----
 
 " ---- Syntax Highlight ----
 syntax on
 set t_Co=256
-" set termguicolors
+set t_ut=
+set termguicolors              " When on, uses highlight-guifg and highlight-guibg attributes in the terminal (thus using 24-bit color).
+" set background=dark
 
-autocmd ColorScheme ron,default call SetColor()
-function! SetColor()
-    " hi Comment ctermfg=8
-    hi Normal guibg=NONE ctermbg=NONE
-    " hi Comment term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Gray80
-    hi ColorColumn ctermbg=52
-    hi CursorColumn ctermbg=237
-    hi CursorLine ctermbg=237 cterm=none
-    hi CursorLineNr ctermbg=237 cterm=none
-    hi SignColumn ctermbg=none
+autocmd ColorScheme ron,default call SetRonColor()
+function! SetRonColor()
+    hi Comment ctermfg=8
     hi FoldColumn ctermbg=none
-    " hi Comment term=standout ctermfg=14 ctermbg=242 guifg=Cyan guibg=Gray80
-    " hi Folded term=standout ctermfg=14 ctermbg=235 guifg=none guibg=none
 endfunc
 
-colorscheme ron
+autocmd ColorScheme codedark call SetGithubColor()
+function! SetVscodeColor()
+    hi CursorColumn                        ctermbg=235                         guibg=#262626
+    hi CursorLine   cterm=none             ctermbg=235  gui=none               guibg=#262626
+    hi CursorLineNr                        ctermbg=235                         guibg=#262626
+    hi Folded       cterm=none ctermfg=245              gui=none guifg=#8a8a8a
+    hi FoldColumn              ctermfg=245 ctermbg=none
+endfunc
+
+colorscheme codedark
 
 " vim diff color
 " https://stackoverflow.com/questions/2019281/load-different-colorscheme-when-using-vimdiff
 " ---- End Syntax Highlight ----
-
-" ---- Search ----
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-" ---- End Search ----
 
 " ---- Tab ----
 " jump to the between tabs
@@ -271,70 +312,70 @@ vmap > >gv
 set pastetoggle=<F2>
 autocmd InsertLeave * set nopaste
 
-nmap <leader>w :set wrap!<CR>
-nmap <leader>n :set number!<CR>
-nmap <leader>r :set relativenumber!<CR>
-nmap <leader>h :set hlsearch!<CR>
-nmap <leader>u :set ignorecase!<CR>
-nmap <leader>c :set cursorcolumn! cursorline!<CR>
+map  <silent> <F3>   :call NextColor(1)<CR>
+map  <silent> <S-F3> :call NextColor(-1)<CR>
+map! <silent> <F3>   :call NextColor(1)<CR>
+map! <silent> <S-F3> :call NextColor(-1)<CR>
+
+nmap          <leader>0 :source ~/.vimrc<CR>
+nmap <silent> <leader>w :set wrap! wrap?<CR>
+nmap <silent> <leader>n :set number! number?<CR>
+nmap <silent> <leader>r :set relativenumber! relativenumber?<CR>
+nmap <silent> <leader>h :set hlsearch! hlsearch?<CR>
+nmap <silent> <leader>u :set ignorecase! ignorecase?<CR>
+nmap <silent> <leader>c :set cursorcolumn! cursorline! cursorcolumn?<CR>
 " augroup Foo
 "   autocmd InsertLeave,WinEnter * set cursorline cursorcolumn
 "   autocmd InsertEnter,WinLeave * set nocursorline nocursorcolumn
 " augroup END
 
 " zoom in & out
-nmap <leader>i <c-w>_ \| <c-w>\|
-nmap <leader>o <c-w>=
+nmap <silent> <leader>i <c-w>_ \| <c-w>\|
+nmap <silent> <leader>o <c-w>=
 
-nmap <leader>e :SrcExplToggle<CR>
-nmap <leader>t :TlistToggle<CR>
-nmap <leader>q :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-nmap <leader>; :IndentLinesToggle<CR>
+nmap          <leader>e :SrcExplToggle<CR>
+nmap          <leader>t :TlistToggle<CR>
+nmap          <leader>b :TagbarToggle<CR>
+nmap          <leader>q :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nmap          <leader>; :IndentLinesToggle<CR>
+nmap          <leader>m :MundoToggle<CR>
 
-nmap <leader>z :call NextFoldMethod(1)<CR>
-nmap <leader>Z :call NextFoldMethod(-1)<CR>
-let s:foldmethods = ['manual', 'indent', 'syntax', 'diff']
+nmap <silent> <leader>z :call NextFoldMethod(1)<CR>
+nmap <silent> <leader>Z :call NextFoldMethod(-1)<CR>
+let s:foldmethods = ['syntax', 'manual', 'indent', 'diff']
 function! NextFoldMethod(count)
-    let method = split(execute('set foldmethod'), '=')[1]
-    let current = index(s:foldmethods, method)
+    let current = index(s:foldmethods, &foldmethod)
     let current = (current + a:count) % len(s:foldmethods)
     execute 'set foldmethod='.s:foldmethods[current]
     set foldmethod?
 endfunction
 
-nmap <leader>f :call NextFoldColumn()<CR>
+nmap <silent> <leader>f :call NextFoldColumn()<CR>
 function! NextFoldColumn()
-    if split(execute('set foldcolumn'), '=')[1] == '0'
-        set foldcolumn=3 foldcolumn?
-    else
+    if &foldcolumn
         set foldcolumn=0 foldcolumn?
+    else
+        set foldcolumn=3 foldcolumn?
     endif
 endfunction
 
-nmap <leader>v :call CopyMode()<CR>
-let s:toggle = 0
+nmap <silent> <leader>x :call CopyMode()<CR>
 function! CopyMode()
-    if s:toggle == 0
-        let s:toggle = 1
-        set nonumber norelativenumber foldcolumn=0
-        IndentLinesDisable      " Plug 'Yggdroot/indentLine'
+    if &number
+        IndentLinesDisable | set nonumber norelativenumber foldcolumn=0
     else
-        let s:toggle = 0
-        set number foldcolumn=3
-        IndentLinesEnable       " Plug 'Yggdroot/indentLine'
+        IndentLinesEnable | set number foldcolumn=3
     endif
 endfunction
 
-nmap <leader>l :call ColorColumn()<CR>
-let s:colorcolumntoggle = 0
+nmap <silent> <leader>l :call ColorColumn()<CR>
 function! ColorColumn()
-    if s:colorcolumntoggle == 0
-        let s:colorcolumntoggle = 1
-        set colorcolumn=81,121,161
-    else
-        let s:colorcolumntoggle = 0
+    if &colorcolumn
         set colorcolumn=
+    else
+        set colorcolumn=81,121,161
     endif
+    set colorcolumn?
 endfunction
 " ---- End Control ----
 
@@ -342,6 +383,7 @@ endfunction
 " Indent
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab autoindent
 autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoindent
+autocmd FileType c,cpp set colorcolumn=81,121,161
 " autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
 
 " Remove Trailing Whitespaces
@@ -349,8 +391,8 @@ autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab autoind
 autocmd BufWritePre * %s/\s\+$//e
 
 " Fold
-autocmd Syntax * setlocal foldmethod=syntax
-autocmd Syntax * normal zR
+autocmd BufRead * setlocal foldmethod=syntax
+autocmd BufRead * normal zR
 
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
@@ -375,18 +417,16 @@ endfunc
 " Update
 " curl -L http://get.akiicat.com | bash -s -- vim
 
-let g:lightline = {
-      \ 'active': {
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype', 'tabstop' ] ]
-      \ },
-      \ 'component_function': {
-      \   'tabstop': 'ShowTabStop'
-      \ },
-      \ }
 
-function! ShowTabStop()
-  return "spaces: ".split(execute('set tabstop?'), '=')[1]
-endfunction
+" get color highlight name
+" map gm :call SynStack()<CR>
+" function! SynStack ()
+"     for i1 in synstack(line("."), col("."))
+"         let i2 = synIDtrans(i1)
+"         let n1 = synIDattr(i1, "name")
+"         let n2 = synIDattr(i2, "name")
+"         echo n1 "->" n2
+"     endfor
+" endfunction
 
+" let g:cpp_attributes_highlight = 1
