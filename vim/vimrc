@@ -26,7 +26,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'       " find files
 
 " trace code
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
 Plug 'preservim/tagbar'
@@ -48,16 +48,16 @@ Plug 'Yggdroot/indentLine'
 Plug 'simnalamburt/vim-mundo'       " undo record
 
 " Syntax highlighting
-" Plug 'ap/vim-css-color'           " preview color
+Plug 'ap/vim-css-color'           " preview color
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'rhysd/vim-crystal', { 'for': ['cr', 'crystal'] }
 " Plug 'slim-template/vim-slim', { 'for': ['slim'] }
 " Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn'] }
 
 " theme
-Plug 'itchyny/lightline.vim' " Light line status bar
+" Plug 'itchyny/lightline.vim' " Light line status bar
 Plug 'akiicat/vim-github-theme'
-Plug 'tomasiser/vim-code-dark' " vscode color theme
+" Plug 'tomasiser/vim-code-dark' " vscode color theme
 Plug 'akiicat/vim-switching-colors'
 " Plug 'flazz/vim-colorschemes'
 " Plug 'rafi/awesome-vim-colorschemes'
@@ -131,7 +131,7 @@ nmap ga <Plug>(EasyAlign)
 " ---- End Easy Align ----
 
 " ---- Vim Switching Colors ----
-let g:themes = 'codedark github_light'
+let g:themes = 'github_dark_dimmed github_light'
 " ---- End Vim Switching Colors ----
 
 " ---- Indent Line ----
@@ -220,7 +220,7 @@ set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks,
 " split
 set splitbelow                 " When on, splitting a window will put the new window below the current one. (default off)
 set splitright                 " When on, splitting a window will put the new window right of the current one. (default off)
-set fillchars+=vert:│          " Continue splitting line
+set fillchars+=vert:│,fold:.,diff:\           " Continue splitting line
 
 " search
 set incsearch                  " See the search results as you start typing the search word
@@ -248,6 +248,7 @@ set undodir=~/.vim/undo
 " ---- Syntax Highlight ----
 syntax on
 set t_Co=256
+" set t_Co=16
 set t_ut=
 set termguicolors              " When on, uses highlight-guifg and highlight-guibg attributes in the terminal (thus using 24-bit color).
 " set background=dark
@@ -264,11 +265,13 @@ function! SetVscodeColor()
     hi CursorLine   cterm=none             ctermbg=235  gui=none               guibg=#262626
     hi CursorLineNr                        ctermbg=235                         guibg=#262626
     hi Folded       cterm=none ctermfg=245              gui=none guifg=#8a8a8a
-    hi FoldColumn              ctermfg=245 ctermbg=none
 endfunc
 
-colorscheme codedark
-
+" colorscheme codedark
+" colorscheme github_dark
+" let g:themes = 'github_light github_light_high_contrast github_light_protanopia_deuteranopia github_light_tritanopia'
+" let g:themes = 'github_dark github_dark_high_contrast github_dark_protanopia_deuteranopia github_dark_tritanopia github_dark_dimmed'
+colorscheme github_dark_dimmed
 " vim diff color
 " https://stackoverflow.com/questions/2019281/load-different-colorscheme-when-using-vimdiff
 " ---- End Syntax Highlight ----
@@ -419,14 +422,15 @@ endfunc
 
 
 " get color highlight name
-" map gm :call SynStack()<CR>
-" function! SynStack ()
-"     for i1 in synstack(line("."), col("."))
-"         let i2 = synIDtrans(i1)
-"         let n1 = synIDattr(i1, "name")
-"         let n2 = synIDattr(i2, "name")
-"         echo n1 "->" n2
-"     endfor
-" endfunction
+map gm :call SynStack()<CR>
+function! SynStack ()
+    for i1 in synstack(line("."), col("."))
+        let i2 = synIDtrans(i1)
+        let n1 = synIDattr(i1, "name")
+        let n2 = synIDattr(i2, "name")
+        echo n1 "->" n2
+    endfor
+endfunction
 
 " let g:cpp_attributes_highlight = 1
+
