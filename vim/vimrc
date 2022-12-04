@@ -26,7 +26,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'       " find files
 
 " trace code
-" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'wenlongche/SrcExpl'
 Plug 'yegappan/taglist'
 Plug 'preservim/tagbar'
@@ -55,7 +55,7 @@ Plug 'ap/vim-css-color'           " preview color
 " Plug 'vale1410/vim-minizinc', { 'for': ['mzn', 'fzn'] }
 
 " theme
-" Plug 'itchyny/lightline.vim' " Light line status bar
+Plug 'itchyny/lightline.vim' " Light line status bar
 Plug 'akiicat/vim-github-theme'
 " Plug 'tomasiser/vim-code-dark' " vscode color theme
 Plug 'akiicat/vim-switching-colors'
@@ -433,4 +433,3 @@ function! SynStack ()
 endfunction
 
 " let g:cpp_attributes_highlight = 1
-
