@@ -8,16 +8,16 @@ function Mkdirp(path)
 endfunction
 
 if has('win32') || has('win64') || has('win32unix') || has('win64unix')
-    let vimpath = $HOME.'/vimfiles'
+    let $vimpath = $HOME.'/vimfiles'
 else
-    let vimpath = $HOME.'/.vim'
+    let $vimpath = $HOME.'/.vim'
 endif
 
-call Mkdirp(expand(vimpath.'/swap'))
-call Mkdirp(expand(vimpath.'/undo'))
+call Mkdirp(expand($vimpath.'/swap'))
+call Mkdirp(expand($vimpath.'/undo'))
 
-set directory^=vimpath/swap// " set swap file path
-set undodir^=vimpath/undo " set swap file path
+set directory^=$vimpath/swap// " set swap file path
+set undodir^=$vimpath/undo " set swap file path
 
 let mapleader = ','              " set leader
 let g:mapleader = ','            " set leader
