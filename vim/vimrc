@@ -33,6 +33,7 @@ call plug#begin()
 Plug 'mg979/vim-visual-multi'
 Plug 'junegunn/vim-easy-align'
 Plug 'airblade/vim-gitgutter'
+" Plug 'mhinz/vim-signify'
 Plug 'ctrlpvim/ctrlp.vim'       " find files
 Plug 'mileszs/ack.vim'          " search text
 Plug 'tpope/vim-dispatch'       " ack.vim async
@@ -433,6 +434,11 @@ autocmd FileType c,cpp set colorcolumn=81,121,161
 " Remove Trailing Whitespaces
 " https://vim.fandom.com/wiki/Remove_unwanted_spaces#:~:text=One%20way%20to%20make%20sure,all%20trailing%20whitespace%20before%20saving.
 autocmd BufWritePre * %s/\s\+$//e
+
+" Show Trailing Whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
 
 " Fold
 autocmd BufRead * setlocal foldmethod=syntax

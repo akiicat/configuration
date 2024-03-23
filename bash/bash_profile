@@ -26,3 +26,6 @@ export TERM=xterm-256color
 # kill "$@" $(jobs -p)
 
 alias python=/usr/local/bin/python3
+
+PS0='${t:0:$((t=$(date +%s%N),0))}'
+PROMPT_COMMAND='(( t )) && printf %d.%09ds\\n $((t=$(date +%s%N)-t,t/1000000000)) $((t%1000000000)); t=0'
